@@ -1,0 +1,33 @@
+
+    <div class="widget-box">
+          <div class="widget-title">
+            <ul id="ip_select" class="nav nav-tabs">
+              <li><a data-toggle="tab" href="#input_ip">输入IP</a></li>
+              <li class="active"><a data-toggle="tab" href="#file_ip">文件IP</a></li>
+            </ul>
+          </div>
+
+          <div class="widget-content tab-content" >
+
+              <div id="input_ip" style="font-weight: bold" class="tab-pane">
+                <div class="control-group">
+                  <div class="controls">
+                    <input type="text" class="span11" id="ip-list" placeholder="输入IP地址 逗号分隔...">
+
+                  </div>
+                </div>
+
+              </div>
+
+            <div id="file_ip" class="tab-pane active">
+                <form id="ip_form_file"  enctype="multipart/form-data">
+                    <input type="file" id="fileAttach" name="ip-file" />
+                    <input type="button" onclick="upload_ip_file()" value="上传" />
+                    <span id="ip-file-wait" class="success-msg"></span>
+                    <span id="ip-file-error" class="error-msg"></span>
+                </form>
+                <div id="get-file-error" class="error-msg"></div>
+            </div>
+
+          </div>
+        </div>

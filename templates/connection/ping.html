@@ -1,0 +1,375 @@
+{% extends 'base/base.html' %}
+{% block css %}
+    <link rel="stylesheet" href="/static/css/colorpicker.css" />
+    <link rel="stylesheet" href="/static/css/datepicker.css" />
+    <link rel="stylesheet" href="/static/css/uniform.css" />
+    <link rel="stylesheet" href="/static/css/select2.css" />
+    <link rel="stylesheet" href="/static/css/bootstrap-wysihtml5.css" />
+
+    <style>
+        .true-rule{
+            font-weight: bold;
+            color: green;
+        }
+        .false-rule{
+            font-weight: bold;
+            color: red;
+        }
+        .error-msg{
+            color: red;
+            font-weight: bold;
+        }
+
+    </style>
+{% endblock %}
+
+
+{% block container %}
+    <div class="nopadding" style="margin-top: 20px;">
+    <h3>Ping</h3>
+
+    <div class="widget-box">
+          <div class="widget-title">
+            <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#tab1">IP</a></li>
+              <li><a data-toggle="tab" href="#tab2">IP段</a></li>
+              <li><a data-toggle="tab" href="#tab3">文件导入</a></li>
+            </ul>
+          </div>
+          <div class="widget-content tab-content" >
+{#按用户输入ip去ping#}
+            <div id="tab1" style="font-weight: bold" class="tab-pane active">
+                <div id="single-error" class="error-msg"></div>
+                <div class="widget-content" id="single-ip">
+                  <div class="controls">
+                      <div class="btn-group">
+                          <a class="btn btn-default no-radius" onclick="$.AddSearchCondition(this)">
+                            <i class="icon-plus-sign"></i>
+                          </a>
+                      </div>
+                      <div class="btn-group" is-input="true" style="margin: 0">
+                          <input type="text" is-rule="true" style="margin: 0;" placeholder="请输入IP地址" >
+                      </div>
+                  </div>
+                </div>
+
+                <div style="margin-top: 15px">
+                    <button class="btn btn-danger" onclick="SubmitValue()" id="post-values">提交</button>
+                </div>
+
+            </div>
+
+{#按ip段来ping#}
+            <div id="tab2" class="tab-pane">
+                <div class="widget-content" id="rang-ip-list">
+                  <div class="controls">
+{#                      <div class="btn-group">#}
+{#                          <a class="btn btn-default no-radius" onclick="$.AddSearchCondition(this)">#}
+{#                            <i class="icon-plus-sign"></i>#}
+{#                          </a>#}
+{#                      </div>#}
+                      <div id="rang-error" class="error-msg"></div>
+                      <div class="btn-group" is-input="true" style="margin: 0">
+                          <div class="controls controls-row">
+                            <input type="text" id="ip-rang-start" is-rule="true" rule-type="rang-ping" class="span2 m-wrap" style="margin: 0;" placeholder="请输入IP起始" >
+                            <input type="text" id="ip-rang-end" is-rule="true" rule-type="rang-ping" class="span2 m-wrap" style="margin: 0;" placeholder="请输入IP结束" >
+                          </div>
+                      </div>
+                  </div>
+                </div>
+
+                <div style="margin-top: 15px">
+                    <button class="btn btn-danger" onclick="SubmitIpRang()" id="post-values">提交</button>
+                </div>
+
+            </div>
+
+{#              上传文件ping#}
+            <div id="tab3" class="tab-pane">
+                <div id="file-error" class="error-msg"></div>
+                <form id="form_file"  enctype="multipart/form-data">
+                    <input type="file" id="fileAttach" name="f1" />
+                    <input type="button" onclick="upload_file()" value="上传" />
+                    <input type="button" onclick="delete_ping_file()" value="删除ping文件" />
+                    <span id="file-wait" class="error-msg"></span>
+                </form>
+                <div style="color: red;font-weight: bold"><h6>必须是.xlsx格式的表格文件，并且IP地址在表格中的第一列，且格式正确</h6></div>
+                <div id="get-file-error" class="error-msg"></div>
+                <div class="widget-content nopadding">
+                    <table class="table table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th>历史记录</th>
+                          <th>动作</th>
+                        </tr>
+                      </thead>
+
+                      <tbody id="file-list">
+                      </tbody>
+                    </table>
+                </div>
+                <div id="file-ping-error" class="error-msg"></div>
+                <table class="table table-striped table-bordered">
+                      <tbody id="file-ping-re">
+                      </tbody>
+
+                </table>
+            </div>
+          </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+
+{% block js %}
+    <script type="text/javascript">
+
+        $(function(){
+            $.InitMenu('#connection', '#ping');          /* 控制左侧菜单的闭合 为点击的按钮添加激活的样式 */
+            Initialise();
+        });
+        function Initialise() {
+            $.ajax({
+                url:'/connection/get_ping_file/',
+                type:'POST',
+                traditional:true,
+                success: function (data) {
+
+                    var callbacks = $.parseJSON(data);               /* 将后台返回的数据 序列化为字典*/
+                    console.log(callbacks);
+
+                    EmbedIntoTable(callbacks,"#file-list");   // 将所有的数据都添加到id=table-body的tbody标签中
+
+                },
+                error:function(){
+                    $('#get-file-error').text('获取文件列表失败')
+                }
+            });  // end ajax
+        }
+
+        function EmbedIntoTable(response, body){
+            var response_status = response.status;
+            if(response_status){
+                $(body).empty();
+                $.each(response.data,function(index,file_name){
+
+                    var tds = [];
+                    tds.push($.CreateTd({'class':'taskDesc','file-name':file_name}, {}, file_name));
+                    tds.push($.CreateTd({'class':'taskOptions'}, {}, $.CreateInput({'type':'button','onclick':'RunFile(this)', 'value':'执行'}, {})));
+
+                    var tr = $.CreateTr({}, {}, tds);
+
+                    $(body).append(tr)
+                })
+            }else {
+                $('#get-file-error').text(response.message);
+            }
+        }
+
+{#提交用户输入的ip#}
+        function SubmitValue(){
+
+            var ip_list = [];
+            $("#single-ip").find("input[is-rule='true']").each(function () {
+                var ip_addr = $(this).val();
+                ip_list.push(ip_addr)
+            });
+            console.log(ip_list);
+
+            var rule_ips = JSON.stringify(ip_list);
+            $.ajax({
+                url:'/connection/single_ping/',
+                type:'POST',
+                traditional:true,
+                data:{'ip_list':rule_ips},
+                success: function (callback) {
+                    var response = $.parseJSON(callback);
+                    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaa", response);
+
+                    if(response.status){
+                        console.log("1111111111111111", response.data);
+                        ExecuteReTr(response.data, '#tab1');
+                    }else {
+                        $('#single-error').text(response.message);
+                    }
+                },
+                error:function(){
+                    $('#single-error').text('请求失败');
+                }
+            });  // end ajax
+
+        }
+
+{#提交用户输入的ip 段#}
+        function SubmitIpRang(){
+
+            var ip_dict = {};
+{#            $("#rang-ip-list").find("input[is-rule='true']").each(function () {#}
+{#                var ip_addr = $(this).val();#}
+{#                ip_list.push(ip_addr)#}
+{#            });#}
+            var start_ip = $("#ip-rang-start").val();
+            var end_ip = $("#ip-rang-end").val();
+            ip_dict.start_ip = start_ip;
+            ip_dict.end_ip = end_ip;
+            console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaa", ip_dict);
+
+            var rang_dict = JSON.stringify(ip_dict);
+            $.ajax({
+                url:'/connection/rang_ping/',
+                type:'POST',
+                traditional:true,
+                data:{'ip_dict':rang_dict},
+                success: function (callback) {
+                    var response = $.parseJSON(callback);
+                    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaa", response);
+                    if(response.status){
+                        ExecuteReTr(response.data, '#tab2');
+                    }else {
+                        $('#rang-error').text(response.message);
+                    }
+                },
+                error:function(){
+                    $('#single-error').text('请求失败');
+                }
+            });  // end ajax
+
+        }
+
+        function SubmitStr(str_list){
+            var input_ips = $('#ip-list').val();                    // 获取输入的ip
+            var check_envir = $(":radio:checked").attr('envir');      // 获取所选环境
+
+            var rule_str_list = [];
+
+            $(str_list).find("input").each(function () {
+{#                var ip_dict = {};#}
+{#                var ip_addr = $(this).val();#}
+{#                var rule_type = $(this).attr('rule-type');#}
+{#                ip_dict.ip = ip_addr;#}
+{#                ip_dict.rule_type = rule_type;#}
+                rule_str_list.push($(this).val())
+            });
+            console.log(rule_str_list);
+
+            var rule_cmd_list = JSON.stringify(rule_str_list);
+            $.ajax({
+                url:'/iptables/add/cmd/',
+                type:'POST',
+                traditional:true,
+                data:{'ip_list':input_ips, 'envir':check_envir, 'rule_cmd_list':rule_cmd_list},
+                success: function (callback) {
+                    var response = $.parseJSON(callback);
+                    console.log(response);
+
+                    if(response.status){
+{#                        console.log("1111111111111111", response.data);#}
+                        ExecuteReTr(response.data, '#tab3');
+                    }else {
+                        $('#error-message').text(response.message);
+                    }
+                },
+                error:function(){
+                    $('#error-message').text('添加规则失败');
+                }
+            });  // end ajax
+
+        }
+
+        function ExecuteReTr(result_list, rule_body){
+            $(rule_body).empty();
+
+            $.each(result_list, function (index, re_dict) {
+                var re = re_dict.re;
+                var state = re_dict.state;
+                var tds = [];
+                if(state == 0){                             // 判断state的值 1为错误红色  0为正确 绿色
+                    tds.push($.CreateTd({'class':'taskDesc true-rule'}, {}, re));
+                    var tr = $.CreateTr({}, {}, tds);
+                    $(rule_body).append(tr)
+                }else {
+                    tds.push($.CreateTd({'class':'taskDesc false-rule'}, {}, re));
+                    var tr = $.CreateTr({}, {}, tds);
+                    $(rule_body).append(tr)
+                }
+
+            });
+{#            $.Show('#rule_show');#}
+        }
+
+        function upload_file(){
+            $("#file-wait").text("上传中...");
+              var form = new FormData(document.getElementById("form_file"));
+              $.ajax({
+              url:"/connection/upload_ping_file/",
+              type:"post",
+              data:form,
+              cache: false,
+              processData: false,
+              contentType: false,
+              success:function(data){
+                    $("#file-wait").text(" ");
+                  var response = $.parseJSON(data);
+                    if(response.status){
+                        Initialise();
+                    }else {
+                        $('#file-error').text(response.message);
+                    }
+              },
+              error:function(){
+                  $('#file-error').text("请求失败");
+                  $("#file-wait").text(" ");
+               }
+              });
+            }
+
+        function RunFile(ths){
+            var file_name = $(ths).parent().siblings().first().attr('file-name');
+            console.log("fffffffffffffffff", file_name);
+            $.ajax({
+                url:'/connection/file_ping/',
+                type:'POST',
+                traditional:true,
+                data:{'file_name':file_name},
+                success: function (callback) {
+                    var response = $.parseJSON(callback);
+                    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaa", response);
+                    if(response.status){
+                        ExecuteReTr(response.data, '#file-ping-re');
+                    }else {
+                        $('#file-ping-error').text(response.message);
+                    }
+                },
+                error:function(){
+                    $('#file-ping-error').text('请求失败');
+                }
+            });  // end ajax
+
+        }
+
+        function delete_ping_file(){
+            $.ajax({
+                url:'/connection/delete_ping_file/',
+                type:'POST',
+                traditional:true,
+                data:{'opt':'delete'},
+                success: function (callback) {
+                    var response = $.parseJSON(callback);
+                    if(response.status){
+                        Initialise();
+                    }else {
+                        $('#file-ping-error').text(response.message);
+                    }
+                },
+                error:function(){
+                    $('#file-ping-error').text('请求失败');
+                }
+            });  // end ajax
+
+        }
+
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - OM_db@10.58.60.177" uuid="ef3c19f6-c520-46a3-a710-07b69dca91c7">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>OM_db.*</schema-pattern>
+      <default-schemas>OM_db.*</default-schemas>
+    </data-source>
+  </component>
+</project>

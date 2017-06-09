@@ -1,0 +1,156 @@
+{% extends 'base/base.html' %}
+{% block css %}
+    <link rel="stylesheet" href="/static/css/colorpicker.css" />
+    <link rel="stylesheet" href="/static/css/datepicker.css" />
+    <link rel="stylesheet" href="/static/css/uniform.css" />
+    <link rel="stylesheet" href="/static/css/select2.css" />
+    <link rel="stylesheet" href="/static/css/bootstrap-wysihtml5.css" />
+
+    <style>
+        .true-rule{
+            color: green;
+        }
+        .false-rule{
+            color: red;
+        }
+        .error-msg{
+            color: red;
+            font-weight: bold;
+        }
+        .user-info{
+            padding-right: 5px;
+            padding-left: 5px;
+            font-weight: bold;
+        }
+        .pages{
+            display: inline-block;
+        }
+    </style>
+{% endblock %}
+
+
+{% block container %}
+    <div class="nopadding" style="margin-top: 20px;">
+        <div class="widget-box">
+          <div class="widget-title bg_ly" data-toggle="collapse" href="#collapseG2"><span class="icon"><i class="icon-chevron-down"></i></span>
+            <h5>Iptables日志</h5>
+          </div>
+          <div class="widget-content nopadding collapse in" id="collapseG2">
+              <div class="error-msg" id="error-message"></div>
+            <ul class="recent-posts" id="log-list">
+
+            </ul>
+
+            <div class="pagination" >
+                <ul id="page">
+
+                </ul>
+            </div>
+          </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block js %}
+    <script type="text/javascript">
+
+        $(function(){
+            $.InitMenu('#log', '#iptables-log');           /* 控制左侧菜单的闭合 为点击的按钮添加激活的样式 */
+            Initialise(1);
+        });
+        function Initialise (page) {
+            $.ajax({
+                url:'/log/iptables_show/',
+                type:'POST',
+                traditional:true,
+                data:{'page':page},
+                success: function (callback) {
+
+                    var callbacks = $.parseJSON(callback);               /* 将后台返回的数据 序列化为字典*/
+                    EmbedIntoTable(callbacks.asset,"#log-list");   // 将所有的数据都添加到id=table-body的tbody标签中
+                    CreatePage(callbacks.page,'#page');
+
+                },
+                error:function(){
+                    $('#error-message').text('请求失败！！')
+                }
+            });  // end ajax
+        }
+
+        function EmbedIntoTable(response, body){
+            if(!response.status){                           // 如果status为False 则 直接弹出message中的数据
+                alert(response.message);
+            }else {
+                $(body).empty();
+                $.each(response.data,function(key,value){       // key：列表中的ID     value：为一个大字典 包含了每条资产需要的18个值
+                    var name_list = [];
+                    var date_list = [];
+                    var div_list = [];
+                    name_list.push(CreateSpan({'id':value.user_num},{},value.login_user));                     // 创建姓名
+                    div_list.push($.CreateBigDiv({'class':'user-thumb'}, {}, name_list));                      // 创建姓名DIV
+
+                    date_list.push(CreateSpan({}, {}, value.add_time));
+                    date_list.push(CreateSpan({'class':'user-info'}, {}, '日志类型: '+value.log_type__type_name));
+                    date_list.push(CreateP({}, {}, value.msg));
+                    div_list.push($.CreateBigDiv({'class':'article-post'}, {}, date_list));
+
+                    $(body).append(CreateLi({}, {}, div_list));
+                })
+            }
+        }
+
+        function CreatePage(data,target){           // 创建分页
+            $(target).empty().append(data);
+        }
+
+
+        function ChangePage(page){
+            Initialise(page);
+        }
+
+        function CreateLi(attrs,csses,div_list){
+            var obj= document.createElement('li');      // 创建一个td的标签
+            $.each(attrs,function(k,v){                 // 循环 属性的attrs
+                $(obj).attr(k,v);
+            });
+            $.each(csses,function(k,v){                 // 循环 css的csses
+                $(obj).css(k,v);
+            });
+            //为创建的td标签 添加html代码
+            $.each(div_list,function(k,v){                   // 循环前面已经装有标签数据的列表 、
+                $(v).appendTo($(obj));                  // 把$()中的元素追加到后面的$(obj)中  将列表中的标签追加到创建的tr中
+            });
+            return obj;
+        }
+
+        function CreateSpan(attrs,csses,text){
+            var obj= document.createElement('span');      // 创建一个td的标签
+            $.each(attrs,function(k,v){                 // 循环 属性的attrs
+                $(obj).attr(k,v);
+            });
+            $.each(csses,function(k,v){                 // 循环 css的csses
+                $(obj).css(k,v);
+            });
+            //为创建的td标签 添加html代码
+            $(obj).html(text);
+            return obj;
+        }
+
+        function CreateP(attrs,csses,text){
+            var obj= document.createElement('p');      // 创建一个td的标签
+            $.each(attrs,function(k,v){                 // 循环 属性的attrs
+                $(obj).attr(k,v);
+            });
+            $.each(csses,function(k,v){                 // 循环 css的csses
+                $(obj).css(k,v);
+            });
+            $(obj).html(text);
+            return obj;
+        }
+
+{#$(":radio:checked").attr('envir')#}
+    </script>
+
+{% endblock %}

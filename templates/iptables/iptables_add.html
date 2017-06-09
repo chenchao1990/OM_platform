@@ -1,0 +1,283 @@
+{% extends 'base/base.html' %}
+{% block css %}
+    <link rel="stylesheet" href="/static/css/colorpicker.css" />
+    <link rel="stylesheet" href="/static/css/datepicker.css" />
+    <link rel="stylesheet" href="/static/css/uniform.css" />
+    <link rel="stylesheet" href="/static/css/select2.css" />
+    <link rel="stylesheet" href="/static/css/bootstrap-wysihtml5.css" />
+
+    <style>
+        .true-rule{
+            font-weight: bold;
+            color: green;
+        }
+        .false-rule{
+            font-weight: bold;
+            color: red;
+        }
+        .error-msg{
+            color: red;
+            font-weight: bold;
+        }
+
+    </style>
+{% endblock %}
+
+
+{% block container %}
+    <div class="nopadding" style="margin-top: 20px;">
+    <h3>新增规则</h3>
+        <div class="control-group">
+          <div class="controls">
+            <input type="text" class="span11" id="ip-list" placeholder="输入IP地址 逗号分隔...">
+            <div class="error-msg" id="error-message" ></div>
+          </div>
+        </div>
+
+        <div class="control-group">
+              <div class="controls">
+                <label>
+                  <div class="radio" id="uniform-undefined"><span><input type="radio" envir="P" name="radios" style="opacity: 0;"></span></div>
+                  生产环境</label>
+                <label>
+                  <div class="radio" id="uniform-undefined"><span class="checked"><input type="radio" envir="T" name="radios" style="opacity: 0;"></span></div>
+                  测试环境</label>
+              </div>
+        </div>
+
+
+    <div class="widget-box">
+          <div class="widget-title">
+            <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#tab1">快速插入</a></li>
+{#              <li><a data-toggle="tab" href="#tab2">单条插入</a></li>#}
+              <li><a data-toggle="tab" href="#tab3">命令行插入</a></li>
+            </ul>
+          </div>
+          <div class="widget-content tab-content" >
+{#              快速插入#}
+            <div id="tab1" style="font-weight: bold" class="tab-pane active">
+                <div class="widget-content" id="quick-rule-list">
+                  <div class="controls">
+                      <div class="btn-group">
+                          <a class="btn btn-default no-radius" onclick="$.AddSearchCondition(this)">
+                            <i class="icon-plus-sign"></i>
+                          </a>
+                      </div>
+                      <div class="btn-group" is-input="true" style="margin: 0">
+                          <input type="text" style="margin: 0;" value="iptables -A INPUT -s " readonly>
+                          <input type="text" is-rule="true" rule-type="simple-rule" style="margin: 0;" placeholder="请输入IP地址" >
+                          <input type="text" style="margin: 0;" value="-j ACCEPT" readonly>
+                      </div>
+                  </div>
+                </div>
+
+                <div style="margin-top: 15px">
+                    <button class="btn btn-danger" onclick="SubmitValue()" id="post-values">提交</button>
+                </div>
+
+            </div>
+{#              单条插入#}
+{#            <div id="tab2" class="tab-pane">#}
+{#                  <div class="controls controls-row">#}
+{#                    <input type="text" placeholder=".span2" >#}
+{#                    <input type="text" placeholder=".span2" >#}
+{#                    <input type="text" placeholder=".span2" >#}
+{##}
+{#                    <select  name="chain_obj" style="width: 154px">#}
+{#                        <option value="_">_</option>#}
+{#                        <option value="-A INPUT">-A INPUT</option>#}
+{#                        <option value="-A OUTPUT">-A OUTPUT</option>#}
+{#                        <option value="-A INPUT -s">-A INPUT -s</option>#}
+{#                        <option value="-A OUTPUT -s">-A OUTPUT -s</option>#}
+{#                        <option value="-P INPUT">-P INPUT</option>#}
+{#                        <option value="-P OUTPUT">-P OUTPUT</option>#}
+{#                    </select>#}
+{##}
+{#                  </div>#}
+{#            </div>#}
+
+{#              命令行插入#}
+            <div id="tab3" class="tab-pane">
+                <div class="widget-content" id="str-list">
+                  <div class="controls">
+                      <div class="btn-group">
+                          <a class="btn btn-default no-radius" onclick="$.AddSearchCondition(this)" >
+                            <i class="icon-plus-sign"></i>
+                          </a>
+                      </div>
+                      <div class="btn-group" style="margin: 0" >
+                          <input type="text" style="margin: 0;" placeholder="输入iptables规则" class="span10 m-wrap">
+                      </div>
+                  </div>
+
+                </div>
+
+                <div style="margin-top: 15px">
+                    <button class="btn btn-danger" onclick="SubmitStr('#str-list')" id="post-values">提交</button>
+                </div>
+            </div>
+          </div>
+        </div>
+{#        <div style="padding-top: 15px">#}
+{#            <button class="btn btn-danger" onclick="SubmitValue()" id="post-values">提交</button>#}
+{#        </div>#}
+
+    </div>
+{% endblock %}
+
+
+{% block js %}
+    <script type="text/javascript">
+
+        $(function(){
+            $.InitMenu('#iptables', '#iptables-add');          /* 控制左侧菜单的闭合 为点击的按钮添加激活的样式 */
+{#            Initialise('#table-body',1);#}
+        });
+        function Initialise(newURL) {
+            $.ajax({
+                url:'/iptables/init_rules/',
+                type:'POST',
+                traditional:true,
+                success: function (callback) {
+
+                    var callbacks = $.parseJSON(callback);               /* 将后台返回的数据 序列化为字典*/
+{#                    InitGlobalDict(callback);#}
+                    EmbedIntoTable(callbacks,"#rule-list");   // 将所有的数据都添加到id=table-body的tbody标签中
+
+                },
+                error:function(){
+                    $('#error-message').text('请求失败！！')
+                }
+            });  // end ajax
+        }
+
+
+        function EmbedIntoTable(response, body){
+            var response_status = response.status;
+            if(response_status == 1){
+                $(body).empty();
+                $.each(response.data,function(key,value){
+                    var rule_str = value.rule;
+                    var rule_id = value.id;
+
+                    var tds = [];
+                    tds.push($.CreateTd({'class':'taskDesc'}, {}, rule_str));
+                    tds.push($.CreateTd({'class':'taskOptions'}, {}, $.CreateI({'class':'icon-remove'}, {}, null)));
+
+                    var tr = $.CreateTr({'id':rule_id, 'rule-tr':'true'}, {}, tds);
+
+                    $(body).append(tr)
+                })
+            }else {
+                $('#error-message').text(response.message);
+            }
+        }
+
+        function SubmitValue(quick_list){
+            var input_ips = $('#ip-list').val();                    // 获取输入的ip
+            var check_envir = $(":radio:checked").attr('envir');      // 获取所选环境
+
+            var ip_list = [];
+            $("#quick-rule-list").find("input[is-rule='true']").each(function () {
+                var ip_dict = {};
+                var ip_addr = $(this).val();
+                var rule_type = $(this).attr('rule-type');
+                ip_dict.ip = ip_addr;
+                ip_dict.rule_type = rule_type;
+                ip_list.push(ip_dict)
+            });
+            console.log(ip_list);
+
+            var rule_ips = JSON.stringify(ip_list);
+            $.ajax({
+                url:'/iptables/add/quick/',
+                type:'POST',
+                traditional:true,
+                data:{'ip_list':input_ips, 'envir':check_envir, 'rule_ips':rule_ips},
+                success: function (callback) {
+                    var response = $.parseJSON(callback);
+                    console.log(response);
+
+                    if(response.status){
+                        console.log("1111111111111111", response.data);
+                        ExecuteReTr(response.data, '#tab1');
+                    }else {
+                        $('#error-message').text(response.message);
+                    }
+                },
+                error:function(){
+                    $('#error-message').text('添加规则失败');
+                }
+            });  // end ajax
+
+        }
+
+        function SubmitStr(str_list){
+            var input_ips = $('#ip-list').val();                    // 获取输入的ip
+            var check_envir = $(":radio:checked").attr('envir');      // 获取所选环境
+
+            var rule_str_list = [];
+
+            $(str_list).find("input").each(function () {
+{#                var ip_dict = {};#}
+{#                var ip_addr = $(this).val();#}
+{#                var rule_type = $(this).attr('rule-type');#}
+{#                ip_dict.ip = ip_addr;#}
+{#                ip_dict.rule_type = rule_type;#}
+                rule_str_list.push($(this).val())
+            });
+            console.log(rule_str_list);
+
+            var rule_cmd_list = JSON.stringify(rule_str_list);
+            $.ajax({
+                url:'/iptables/add/cmd/',
+                type:'POST',
+                traditional:true,
+                data:{'ip_list':input_ips, 'envir':check_envir, 'rule_cmd_list':rule_cmd_list},
+                success: function (callback) {
+                    var response = $.parseJSON(callback);
+                    console.log(response);
+
+                    if(response.status){
+                        console.log("1111111111111111", response.data);
+                        ExecuteReTr(response.data, '#tab3');
+                    }else {
+                        $('#error-message').text(response.message);
+                    }
+                },
+                error:function(){
+                    $('#error-message').text('添加规则失败');
+                }
+            });  // end ajax
+
+        }
+
+        function ExecuteReTr(result_list, rule_body){
+            $(rule_body).empty();
+            $('#ip-list').val('');
+            $('#error-message').text('');
+
+            $.each(result_list, function (index, data_dict) {
+                var ip = data_dict.ip;
+                var msg = data_dict.msg;
+                var state = data_dict.state;
+                var tds = [];
+                var re_str = ip + msg;
+                if(state == 0){                             // 判断state的值 1为错误红色  0为正确 绿色
+                    tds.push($.CreateTd({'class':'taskDesc true-rule'}, {}, re_str));
+                    var tr = $.CreateTr({}, {}, tds);
+                    $(rule_body).append(tr)
+                }else {
+                    tds.push($.CreateTd({'class':'taskDesc false-rule'}, {}, re_str));
+                    var tr = $.CreateTr({}, {}, tds);
+                    $(rule_body).append(tr)
+                }
+
+            });
+{#            $.Show('#rule_show');#}
+        }
+{#$(":radio:checked").attr('envir')#}
+    </script>
+
+{% endblock %}

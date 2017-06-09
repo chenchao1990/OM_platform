@@ -1,0 +1,27 @@
+.run-ok{
+    color: green;
+    font-weight: bold;
+    font-size: 14px;
+}
+.run-msg{
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px;
+}
+.run-faild{
+    color: red;
+    font-weight: bold;
+    font-size: 14px;
+}
+.run-unkown{
+    color: #cf6b06;
+    font-weight: bold;
+    font-size: 14px;
+}
+.msg-padding{
+    padding-left: 35px;
+}
+.error-msg{
+    font-weight: bold;
+    color: red;
+}

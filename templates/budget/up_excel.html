@@ -1,0 +1,24 @@
+
+    <div class="widget-box">
+          <div class="widget-title">
+            <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#tab2">文件IP</a></li>
+            </ul>
+          </div>
+
+          <div class="widget-content tab-content" >
+
+
+
+            <div id="tab2" class="tab-pane active">
+                <form id="ip_form_file"  enctype="multipart/form-data">
+                    <input type="file" id="fileAttach" name="ip-file" />
+                    <input type="button" onclick="upload_ip_file()" value="上传" />
+                    <span id="ip-file-wait" class="success-msg"></span>
+                    <span id="ip-file-error" class="error-msg"></span>
+                </form>
+                <div id="get-file-error" class="error-msg"></div>
+            </div>
+
+          </div>
+        </div>

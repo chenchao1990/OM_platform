@@ -1,0 +1,163 @@
+{% extends 'base/base.html' %}
+{% block css %}
+    <link rel="stylesheet" href="/static/css/colorpicker.css" />
+    <link rel="stylesheet" href="/static/css/datepicker.css" />
+    <link rel="stylesheet" href="/static/css/uniform.css" />
+    <link rel="stylesheet" href="/static/css/select2.css" />
+    <link rel="stylesheet" href="/static/css/bootstrap-wysihtml5.css" />
+
+    <style>
+        .true-rule{
+            color: green;
+        }
+        .false-rule{
+            color: red;
+        }
+        .error-msg{
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+{% endblock %}
+
+
+{% block container %}
+    <div class="nopadding" style="margin-top: 20px;">
+    <h3>查询</h3>
+        <div class="control-group">
+          <div class="controls">
+            <input type="text" class="span11" id="ip-list" placeholder="输入IP地址 逗号分隔...">
+            <div class="error-msg" id="error-message" ></div>
+          </div>
+        </div>
+
+        <div class="control-group">
+              <div class="controls">
+                <label>
+                  <div class="radio" id="uniform-undefined"><span><input type="radio" envir="P" name="radios" style="opacity: 0;"></span></div>
+                  生产环境</label>
+                <label>
+                  <div class="radio" id="uniform-undefined"><span class="checked"><input type="radio" envir="T" name="radios" style="opacity: 0;"></span></div>
+                  测试环境</label>
+              </div>
+        </div>
+
+
+            <table class="table table-striped table-bordered" style="border: 1px solid #CDCDCD;">
+              <thead>
+                <tr>
+                  <th>规则</th>
+                </tr>
+              </thead>
+
+              <tbody id="rule-list" style="font-weight: bold;">
+
+              </tbody>
+            </table>
+        <div style="padding-top: 15px">
+            <button class="btn btn-danger" onclick="SubmitValue()" id="post-values">提交</button>
+        </div>
+
+    </div>
+{% endblock %}
+
+
+{% block js %}
+    <script type="text/javascript">
+
+        $(function(){
+            $.InitMenu('#iptables', '#iptables-check');          /* 控制左侧菜单的闭合 为点击的按钮添加激活的样式 */
+{#            Initialise('#table-body',1);#}
+        });
+        function Initialise (newURL) {
+            $.ajax({
+                url:'/iptables/init_rules/',
+                type:'POST',
+                traditional:true,
+                success: function (callback) {
+
+                    var callbacks = $.parseJSON(callback);               /* 将后台返回的数据 序列化为字典*/
+{#                    InitGlobalDict(callback);#}
+                    EmbedIntoTable(callbacks,"#rule-list");   // 将所有的数据都添加到id=table-body的tbody标签中
+
+                },
+                error:function(){
+                    $('#error-message').text('请求失败！！')
+                }
+            });  // end ajax
+        }
+
+        function EmbedIntoTable(response, body){
+            var response_status = response.status;
+            if(response_status == 1){
+                $(body).empty();
+                $.each(response.data,function(key,value){
+                    var rule_str = value.rule;
+                    var rule_id = value.id;
+
+                    var tds = [];
+                    tds.push($.CreateTd({'class':'taskDesc'}, {}, rule_str));
+                    tds.push($.CreateTd({'class':'taskOptions'}, {}, $.CreateI({'class':'icon-remove'}, {}, null)));
+
+                    var tr = $.CreateTr({'id':rule_id, 'rule-tr':'true'}, {}, tds);
+
+                    $(body).append(tr)
+                })
+            }else {
+                $('#error-message').text(response.message);
+            }
+        }
+
+        function SubmitValue(){
+            var input_ips = $('#ip-list').val();                    // 获取输入的ip
+            var check_envir = $(":radio:checked").attr('envir');      // 获取所选环境
+
+            $.ajax({
+                url:'/iptables/check_rules/',
+                type:'POST',
+                traditional:true,
+                data:{'ip_list':input_ips, 'envir':check_envir},
+                success: function (callback) {
+                    var response = $.parseJSON(callback);
+                    console.log(response);
+
+                    if(response.status){
+                        console.log("1111111111111111", response.data);
+                        ExecuteReTr(response.data, '#rule-list');
+                    }else {
+                        $('#error-message').text(response.message);
+                    }
+                },
+                error:function(){
+                    $('#error-message').text('获取规则失败');
+                }
+            });  // end ajax
+
+        }
+
+        function ExecuteReTr(result_list, rule_body){
+            $(rule_body).empty();
+            $('#ip-list').val('');
+            $('#error-message').text('');
+
+            $.each(result_list, function (index, data_dict) {
+                var ip = data_dict.ip;              // IP地址
+                var ip_tds = [];
+                ip_tds.push($.CreateTd({'class':'taskDesc false-rule'}, {}, ip));      // 先将IP地址放入列表中
+                var ip_tr = $.CreateTr({}, {}, ip_tds);
+                $(rule_body).append(ip_tr);                                     // 将IP的tr放入页面中
+
+                $.each(data_dict.rules, function (num, rule) {
+                    var rule_tds = [];
+                    rule_tds.push($.CreateTd({'class':'taskDesc'}, {}, rule));
+                    var rule_tr = $.CreateTr({}, {}, rule_tds);
+                    $(rule_body).append(rule_tr);
+                });
+
+            });
+{#            $.Show('#rule_show');#}
+        }
+{#$(":radio:checked").attr('envir')#}
+    </script>
+
+{% endblock %}

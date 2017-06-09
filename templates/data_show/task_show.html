@@ -1,0 +1,164 @@
+{% extends 'base/base.html' %}
+{% block css %}
+    <link rel="stylesheet" href="/static/css/colorpicker.css" />
+    <link rel="stylesheet" href="/static/css/datepicker.css" />
+    <link rel="stylesheet" href="/static/css/uniform.css" />
+    <link rel="stylesheet" href="/static/css/select2.css" />
+    <link rel="stylesheet" href="/static/css/bootstrap-wysihtml5.css" />
+
+    <style>
+        .true-rule{
+            color: green;
+        }
+        .false-rule{
+            color: red;
+        }
+        .error-msg{
+            color: red;
+            font-weight: bold;
+        }
+
+        .table td{
+            text-align: center;
+        }
+        .current-day{
+{#            background-color: #ff8001;#}
+            color: black;
+            font-weight: bold;
+        }
+        }
+    </style>
+{% endblock %}
+
+
+{% block container %}
+    <div class="nopadding" style="margin-top: 20px;">
+
+                <!-- Single button -->
+    <div class="btn-group">
+      <button type="button" id="current-month" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" id="month-option">
+        <li id="1"><a>一月</a></li>
+        <li id="2"><a>二月</a></li>
+        <li id="3"><a>三月</a></li>
+        <li id="4"><a>四月</a></li>
+        <li id="5"><a>五月</a></li>
+        <li id="6"><a>六月</a></li>
+        <li id="7"><a>七月</a></li>
+        <li id="8"><a>八月</a></li>
+        <li id="9"><a>九月</a></li>
+        <li id="10"><a>十月</a></li>
+        <li id="11"><a>十一月</a></li>
+        <li id="12"><a>十二月</a></li>
+      </ul>
+    </div>
+        <div><h4 id="current-time">2017年2月4日 8:52</h4></div>
+        <table class="table table-striped table-bordered" style="border: 1px solid #CDCDCD;">
+              <thead>
+                <tr>
+                  <th>日期</th>
+                  <th>星期</th>
+                  <th>SA</th>
+                  <th>电话</th>
+                  <th>值班地点</th>
+                </tr>
+              </thead>
+{#              <tbody id="rule-list" style="font-weight: bold;text-align:center;">#}
+              <tbody id="rule-list" class="tbody-font">
+
+              </tbody>
+            </table>
+    </div>
+{% endblock %}
+
+
+{% block js %}
+    <script type="text/javascript">
+
+        $(function(){
+{#            $.InitMenu('#asset_list');          /* 控制左侧菜单的闭合 为点击的按钮添加激活的样式 */#}
+            Initialise();
+            SelectMonth();
+        });
+        function Initialise (month_id) {
+            $.ajax({
+                url:'/task/show_month/',
+                type:'POST',
+                traditional:true,
+                data:{'month_id':month_id},
+                success: function (callback) {
+
+                    var callbacks = $.parseJSON(callback);               /* 将后台返回的数据 序列化为字典*/
+                    console.log("99999999", callbacks);
+{#                    InitGlobalDict(callback);#}
+
+                    EmbedIntoTable(callbacks,"#rule-list");   // 将所有的数据都添加到id=table-body的tbody标签中
+                    CurrentTime(callbacks.current_time, callbacks.current_month);
+                    CurrentDay(callbacks.current_day);
+
+                },
+                error:function(){
+                    $('#error-message').text('请求失败！！')
+                }
+            });  // end ajax
+        }
+
+        function EmbedIntoTable(response, body){
+            var response_status = response.status;
+            if(response_status == 1){
+                $(body).empty();
+                $.each(response.data,function(key,value){
+                    var date_str = value.date_str;
+                    var week_str = value.week_str;
+                    var sa_user = value.sa_user;
+                    var sa_tel = value.sa_tel;
+                    var day_id = value.day_num;
+                    var office_place = value.office_place;
+
+                    var tds = [];
+                    tds.push($.CreateTd({'class':'taskDesc'}, {}, date_str));
+                    tds.push($.CreateTd({'class':'taskDesc'}, {}, week_str));
+                    tds.push($.CreateTd({'class':'taskDesc'}, {}, sa_user));
+                    tds.push($.CreateTd({'class':'taskDesc'}, {}, sa_tel));
+                    tds.push($.CreateTd({'class':'taskDesc'}, {}, office_place));
+
+                    var tr = $.CreateTr({'day-num':day_id, 'rule-tr':'true'}, {}, tds);
+
+                    $(body).append(tr)
+                })
+            }else {
+                $('#error-message').text(response.message);
+            }
+        }
+
+        function CurrentTime(current_time, current_month){
+
+            $('#current-time').text(current_time);
+            $('#current-month').text(current_month).append("<span class='caret'></span>");
+
+        }
+{#        定位到当月当天的位置，并添加颜色样式#}
+        function CurrentDay(current_day){
+            $('#rule-list').children().each(function () {
+                var day_num = $(this).attr('day-num');
+                if (current_day == day_num){
+                    $(this).children().attr('style', 'background-color: #ff8001');
+                    $(this).addClass('current-day')
+                }
+            })
+
+        }
+{#        将所有的月份选项都绑定时间#}
+        function SelectMonth(){
+            $('#month-option').children().bind('click', function () {
+                var month_id = $(this).attr('id');
+                Initialise(month_id);
+
+            })
+        }
+
+    </script>
+
+{% endblock %}

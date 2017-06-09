@@ -1,0 +1,286 @@
+{% extends 'base/base.html' %}
+{% block css %}
+    <link rel="stylesheet" href="/static/css/colorpicker.css" />
+    <link rel="stylesheet" href="/static/css/datepicker.css" />
+    <link rel="stylesheet" href="/static/css/uniform.css" />
+    <link rel="stylesheet" href="/static/css/select2.css" />
+    <link rel="stylesheet" href="/static/css/bootstrap-wysihtml5.css" />
+
+    <style>
+        .run-ok{
+            color: green;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .run-msg{
+            font-weight: bold;
+            font-size: 14px;
+            padding: 10px;
+        }
+        .run-faild{
+            color: red;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .run-unkown{
+            color: #cf6b06;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .msg-padding{
+            padding-left: 35px;
+        }
+        .error-msg{
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+{% endblock %}
+
+
+{% block container %}
+    <div class="nopadding" style="margin-top: 20px;">
+    <h3>命令执行</h3>
+
+        <div class="control-group">
+              <div class="controls">
+                <label>
+                  <div class="radio" id="uniform-undefined"><span><input type="radio" envir="P" name="radios" style="opacity: 0;"></span></div>
+                  生产环境</label>
+                <label>
+                  <div class="radio" id="uniform-undefined"><span class="checked"><input type="radio" envir="T" name="radios" style="opacity: 0;"></span></div>
+                  测试环境</label>
+              </div>
+        </div>
+
+        <div class="widget-box">
+
+          <div class="widget-content tab-content" >
+              <div class="controls">
+                <input type="text" class="span11" id="ip-list" placeholder="输入IP地址....">
+                <div class="error-msg" id="ip-error" ></div>
+              </div>
+
+          </div>
+        </div>
+
+        <div class="widget-box">
+
+          <div class="widget-content tab-content" >
+                <div class="control-group">
+                  <div class="controls">
+                    <input type="text" class="span11" id="cmd-list" placeholder="输入要执行的命令.....">
+                    <div class="error-msg" id="cmd-error" ></div>
+                  </div>
+                </div>
+
+
+                <div style="margin-top: 15px">
+                    <button class="btn btn-danger" onclick="SubmitValue()" id="post-values">提交</button>
+                </div>
+
+          </div>
+        </div>
+
+        <div class="widget-box">
+
+          <div class="widget-content tab-content" >
+                <div class="control-group">
+                  <div class="controls" id="run-reuslt">
+                      <div id="result-msg" class="run-msg"></div>
+                      <div id="run-ok"></div>
+                      <div id="run-faild"></div>
+                      <div id="run-unkonwn"></div>
+                </div>
+          </div>
+        </div>
+
+    </div>
+    </div>
+{% endblock %}
+
+
+{% block js %}
+    <script type="text/javascript">
+
+        $(function(){
+            $.InitMenu('#ansible-execute', '#ansible-cmd');          /* 控制左侧菜单的闭合 为点击的按钮添加激活的样式 */
+{#            Initialise();#}
+        });
+
+        function Initialise() {
+            $.ajax({
+                url:'/password/get_pwd_file/',
+                type:'POST',
+                traditional:true,
+                success: function (data) {
+
+                    var callbacks = $.parseJSON(data);               /* 将后台返回的数据 序列化为字典*/
+                    console.log(callbacks);
+
+                    EmbedIntoTable(callbacks,"#file-list");   // 将所有的数据都添加到id=table-body的tbody标签中
+
+                },
+                error:function(){
+                    $('#get-file-error').text('获取文件列表失败')
+                }
+            });  // end ajax
+        }
+
+        function SubmitValue(){
+            var input_ips = $('#ip-list').val();                        // 获取输入的ip
+            var input_cmd = $('#cmd-list').val();                       // 获取输入的ip
+            var check_envir = $(":radio:checked").attr('envir');        // 获取所选环境
+            console.log("eeeeeeeeeeeeeeeeeeeeeeee", check_envir);
+            $('#error-message').empty();
+            $.ajax({
+                url:'/ansible/cmd_run/',
+                type:'POST',
+                traditional:true,
+                data:{'ip_list':input_ips, 'envir':check_envir, 'cmd':input_cmd},
+                success: function (data) {
+                    var response = $.parseJSON(data);
+                    console.log(response);
+                    $('#run-ok').empty();
+                    $('#result-msg').empty();
+                    $('#run-faild').empty();
+                    $('#run-unkonwn').empty();
+                    $('#ip-list').empty();
+                    $('#ip-error').empty();
+                    $('#cmd-error').empty();
+
+                    if(!response.status){
+                        $('#cmd-error').text(response.message)
+                    }else if(!response.ip_state){                      // 输入IP地址出现问题
+                        $('#ip-error').text(response.message)
+                    }else if (!response.pwd_state){
+                        $('#ip-error').text(response.message)
+                    }else if (!response.cmd_state){
+                        $('#cmd-error').text(response.message)
+                    }else {
+                        console.log("888888888888", response.no_pass);
+                        ExecuteReTr(response.data, response.no_pass);
+                    }
+
+                },
+                error:function(){
+                    $('#error-message').text('获取密码失败');
+                }
+            });  // end ajax
+
+        }
+
+        function EmbedIntoTable(response, body){
+            var response_status = response.status;
+            if(response_status){
+                $(body).empty();
+                $.each(response.data,function(index,file_name){
+
+                    var tds = [];
+                    tds.push($.CreateTd({'class':'taskDesc','file-name':file_name}, {}, file_name));
+                    tds.push($.CreateTd({'class':'taskOptions'}, {}, $.CreateInput({'type':'button','onclick':'RunFile(this)', 'value':'执行'}, {})));
+
+                    var tr = $.CreateTr({}, {}, tds);
+
+                    $(body).append(tr)
+                })
+            }else {
+                $('#get-file-error').text(response.message);
+            }
+        }
+        function ExecuteReTr(result_dict, no_pass){
+
+            var result_msg = result_dict.result_msg;
+            var run_ok_list = result_dict.run_ok;
+            var run_failed_list = result_dict.run_failed;
+            var host_unreachable_list = result_dict.host_unreachable;
+
+            $('#ip-error').text(no_pass);
+            $('#result-msg').text(result_msg);
+            $.each(run_ok_list, function (index, value_dict) {
+                var ip = value_dict.ip;
+                var result = value_dict.result;
+                $('#run-ok').append(CreateP({'class':'run-ok'}, {},ip));
+                $('#run-ok').append(CreateP({'class':'msg-padding'}, {},result));
+            });
+            $.each(run_failed_list, function (index, value_dict) {
+                var ip = value_dict.ip;
+                var result = value_dict.result;
+                $('#run-faild').append(CreateP({'class':'run-faild'}, {}, ip));
+                $('#run-faild').append(CreateP({'class':'msg-padding'}, {},result));
+            });
+            $.each(host_unreachable_list, function (index, value_dict) {
+                var ip = value_dict.ip;
+                var result = value_dict.result;
+                $('#run-unkonwn').append(CreateP({'class':'run-unkown'}, {},ip));
+                $('#run-unkonwn').append(CreateP({'class':'msg-padding'}, {},result));
+            });
+
+        }
+
+        function upload_file(){
+            $("#file-wait").text("上传中...");
+              var form = new FormData(document.getElementById("form_file"));
+              $.ajax({
+              url:"/password/upload_pwd_file/",
+              type:"post",
+              data:form,
+              cache: false,
+              processData: false,
+              contentType: false,
+              success:function(data){
+                    $("#file-wait").text(" ");
+                  var response = $.parseJSON(data);
+                    if(response.status){
+                        Initialise();
+                    }else {
+                        $('#file-error').text(response.message);
+                    }
+              },
+              error:function(){
+                  $('#file-error').text("请求失败");
+                  $("#file-wait").text(" ");
+               }
+              });
+            }
+
+        function RunFile(ths){
+            var file_name = $(ths).parent().siblings().first().attr('file-name');
+            var check_envir = $(":radio:checked").attr('envir');      // 获取所选环境
+            console.log("fffffffffffffffff", file_name);
+            $.ajax({
+                url:'/password/run_check_file/',
+                type:'POST',
+                traditional:true,
+                data:{'file_name':file_name, 'envir':check_envir},
+                success: function (callback) {
+                    var response = $.parseJSON(callback);
+                    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaa", response);
+                    if(response.status){
+                        ExecuteReTr(response.data, '#file-pwd-list');
+                    }else {
+                        $('#file-ping-error').text(response.message);
+                    }
+                },
+                error:function(){
+                    $('#file-ping-error').text('请求失败');
+                }
+            });  // end ajax
+
+        }
+
+        function CreateP(attrs,csses,text){
+            var obj= document.createElement('p');       // 创建一个i标签
+            $.each(attrs,function(k,v){                 // {href     id     target}
+                $(obj).attr(k,v);                       // 为创建的i标签 添加属性
+            });
+            $.each(csses,function(k,v){
+                $(obj).css(k,v);
+            });
+            $(obj).html(text);                          // 设置p标签的内容
+            return obj
+        }
+
+    </script>
+
+{% endblock %}

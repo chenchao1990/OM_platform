@@ -1,0 +1,41 @@
+#!/usr/bin/env python
+# _*_coding:utf-8 _*_
+from django.shortcuts import render, HttpResponse
+from Daily_app.manage import task_manager
+from Daily_app.views.account import login_sso
+import json
+import datetime
+
+
+@login_sso
+def create_task_data(request):
+    year_num = 2017
+    task_manager.create_task_data(year_num)
+    return HttpResponse(str(year_num) + " task data is create successful!!!!")
+
+
+# @login_auth
+def task_show(request):
+
+    return render(request, 'data_show/task_show.html')
+
+
+# @login_auth
+def task_show_all(request):
+
+    ret = task_manager.get_task(2).__dict__
+    return HttpResponse(json.dumps(ret))
+
+
+# @login_auth
+def task_show_month(request):
+    s = datetime.datetime.now()
+    if request.method == "POST":
+        month_num = request.POST.get('month_id')
+        if month_num:                               # 如果有月份 说明是在切换月份
+
+            ret = task_manager.get_task(int(month_num)).__dict__
+        else:                                       # 如果没有 说明是刚打开页面，自动跳转的当前月
+            current_day = datetime.datetime.now().day
+            ret = task_manager.get_task(s.month, current_day).__dict__
+        return HttpResponse(json.dumps(ret))

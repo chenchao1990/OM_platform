@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script type="text/javascript">
+
+    function getUrlParam(name){
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r!=null) return unescape(r[2]); return null;
+    } 
+
+    var redirect_url = getUrlParam('redirect_url');
+    if (redirect_url == null){
+        redirect_url="/";
+    }
+
+    var token = getUrlParam('token');
+    if (token != null){
+        document.cookie = 'gome_sso_token=' + token;
+        location.href = redirect_url;
+        exit;
+    }
+
+    var host = window.location.host;
+    var ssoDomain = "{{ ssoDomain }}";
+    var url = 'http://'+ssoDomain+'/app/login?redirectUrl=http://'+host;
+    location.href = url
+</script>
+</head>
+</html>

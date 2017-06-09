@@ -1,0 +1,322 @@
+{% extends 'base/base.html' %}
+{% block css %}
+    <link rel="stylesheet" href="/static/css/colorpicker.css" />
+    <link rel="stylesheet" href="/static/css/datepicker.css" />
+    <link rel="stylesheet" href="/static/css/uniform.css" />
+    <link rel="stylesheet" href="/static/css/select2.css" />
+    <link rel="stylesheet" href="/static/css/bootstrap-wysihtml5.css" />
+
+    <style>
+
+        .success-msg{
+            color: green;
+            font-weight: bold;
+        }
+        .dis-table{
+            display: none
+        }
+        .no-pass{
+            padding: 10px;
+            font-size: 12px;
+            font-weight: bold;
+            color: red;
+        }
+
+
+        .true-rule{
+            color: green;
+        }
+        .false-rule{
+            color: red;
+        }
+        .error-msg{
+            color: red;
+            font-weight: bold;
+        }
+
+        .table td{
+            text-align: center;
+        }
+        .current-day{
+{#            background-color: #ff8001;#}
+            color: black;
+            font-weight: bold;
+        }
+        .title-width{
+            width: 80px !important;
+        }
+        .budget-width{
+            position:absolute;
+            overflow:auto;
+            background:#EEEEEE;
+            width: 1200px;
+            height: 600px;
+        }
+        .in-editing{
+            background-color: #dd870d;
+            color: white;
+
+        }
+        .in-adding{
+            background-color: #dd870d;
+            color: white;
+
+        }
+        .hide-tr{
+            display: none;
+        }
+
+    </style>
+{% endblock %}
+
+
+{% block container %}
+    <div class="nopadding" style="margin-top: 20px;">
+    <h3>表格管理</h3>
+
+        <div class="error-msg" id="error-message" ></div>
+        <div class="widget-box">
+          <div class="widget-title">
+            <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#tab1">文件导入</a></li>
+            </ul>
+          </div>
+
+          <div class="widget-content tab-content">
+
+            <div id="tab1" style="font-weight: bold" class="tab-pane active">
+
+                <form id="up_form_file"  enctype="multipart/form-data">
+                    <input type="file" id="fileAttach" name="upload_filename" />
+                    <input type="button" onclick="upload_file()" value="上传" />
+                    <span id="upload-wait" class="success-msg"></span>
+                    <div id="upload-file-error" class="error-msg"></div>
+                </form>
+                <div style="color: red;font-weight: bold"><h6>文件名不能含有中文</h6></div>
+                <br>
+                <div id="get-upfile-error" class="error-msg"></div>
+                <div class="nopadding">
+                    <table class="table table-striped table-bordered" style="width:60%;border: 1px solid #CDCDCD;">
+                      <thead>
+                        <tr>
+                          <th>文件名</th>
+                          <th>大小</th>
+                          <th>时间</th>
+                          <th>操作</th>
+                        </tr>
+                      </thead>
+
+                      <tbody id="upfile-list">
+
+                      </tbody>
+                    </table>
+                    <br>
+                </div>
+            </div>
+          </div>
+
+        </div>
+
+    </div>
+{% endblock %}
+
+
+{% block js %}
+    <script type="text/javascript">
+
+        $(function(){
+            Initialise();
+        });
+
+        function Initialise() {
+            $.ajax({
+                url:'/show_all_budget/',
+                type:'POST',
+                traditional:true,
+                success: function (data) {
+
+                    var callbacks = $.parseJSON(data);               /* 将后台返回的数据 序列化为字典*/
+                    console.log(callbacks);
+
+                    EmbedIntoTable(callbacks,"#upfile-list");   // 将所有的数据都添加到id=table-body的tbody标签中
+
+                },
+                error:function(){
+                    $('#get-upfile-error').text('获取文件列表失败')
+                }
+            });  // end ajax
+        }
+
+        function EmbedIntoTable(response, body){
+            var response_status = response.status;
+            if(response_status){
+                $(body).empty();
+                $.each(response.data,function(index,file_dict){
+                    var filename = file_dict.filename;
+                    var fileszie = file_dict.filesize;
+                    var filetime = file_dict.filetime;
+
+                    var tds = [];
+                    tds.push($.CreateTd({'class':'taskDesc','file-name':filename, 'file-type': 'file'}, {}, filename));
+                    tds.push($.CreateTd({'class':'taskDesc'}, {}, fileszie));
+                    tds.push($.CreateTd({'class':'taskDesc'}, {}, filetime));
+                    tds.push($.CreateTd({'class':'taskOptions'}, {}, $.CreateInput({'type':'button','onclick':'DispenseFile(this)', 'value':'展示'}, {})));
+                    tds.push($.CreateTd({'class':'taskOptions'}, {}, $.CreateInput({'type':'button','onclick':'delete_file(this)', 'value':'删除'}, {})));
+                    var tr = $.CreateTr({}, {}, tds);
+                    $(body).append(tr)
+                })
+            }else {
+                $('#get-upfile-error').text(response.message);
+            }
+        }
+
+        function ExecuteReTr(result_dict, no_pass_list){
+            var result_msg = result_dict.result_msg;
+            var run_ok_list = result_dict.run_ok;
+            var run_failed_list = result_dict.run_failed;
+            var host_unreachable_list = result_dict.host_unreachable;
+            var no_pass_str = '密码查询失败: ' + no_pass_list;
+
+            $('#result-msg').text(result_msg);
+            $('#no-pass').text(no_pass_str);
+            $.each(run_failed_list, function (index, value_dict) {
+                var ip = value_dict.ip;
+                var result = value_dict.result;
+                $('#run-faild').append(CreateP({'class':'run-faild'}, {}, ip));
+                $('#run-faild').append(CreateP({'class':'msg-padding'}, {},result));
+            });
+            $.each(host_unreachable_list, function (index, value_dict) {
+                var ip = value_dict.ip;
+                var result = value_dict.result;
+                $('#run-unkonwn').append(CreateP({'class':'run-unkown'}, {},ip));
+                $('#run-unkonwn').append(CreateP({'class':'msg-padding'}, {},result));
+            });
+            $.each(run_ok_list, function (index, value_dict) {
+                var ip = value_dict.ip;
+                var result = value_dict.result;
+                $('#run-ok').append(CreateP({'class':'run-ok'}, {},ip));
+                $('#run-ok').append(CreateP({'class':'msg-padding'}, {},result));
+            });
+        }
+
+        function upload_file(){
+              $('#upload-file-error').text(" ");
+              $("#upload-wait").text(" ");
+              var form = new FormData(document.getElementById("up_form_file"));
+              $.ajax({
+              url:"/upload_budget_file/",
+              type:"post",
+              data:form,
+              cache: false,
+              processData: false,
+              contentType: false,
+              success:function(data){
+{#                    $("#file-wait").text(" ");#}
+                  var response = $.parseJSON(data);
+                  console.log(">>>>>>>>>>>>>>>>>>>>>>>", response);
+                    if(response.status){
+                        $("#upload-wait").text(response.message);
+                        Initialise();
+                    }else {
+                        $('#upload-file-error').text(response.message);
+                    }
+              },
+              error:function(){
+                  $('#upload-file-error').text("请求失败");
+                  $("#upload-wait").text(" ");
+               }
+              });
+            }
+        function upload_ip_file(){
+                $("#ip-file-wait").text(" ");
+                $('#ip-file-error').text(" ");
+              var form = new FormData(document.getElementById("ip_form_file"));
+              $.ajax({
+              url:"/ansible/upload_ip_file/",
+              type:"post",
+              data:form,
+              cache: false,
+              processData: false,
+              contentType: false,
+              success:function(data){
+                  var response = $.parseJSON(data);
+                  console.log("vvvvvvvvvvvvvvvvv", response);
+                    if(response.status){
+                        Initialise();
+                        $("#ip-file-wait").text("上传成功");
+                    }else {
+                        $('#ip-file-error').text(response.message);
+                    }
+              },
+              error:function(){
+                  $('#ip-file-error').text("请求失败");
+                  $("#ip-file-wait").text(" ");
+               }
+              });
+            }
+        function DispenseFile(ths){
+            var file_name = $(ths).parent().siblings().first().attr('file-name');
+            $('#error-message').empty();
+            $.ajax({
+                url:'/budget_data_excel/',
+                type:'POST',
+                traditional:true,
+                data:{'file_name':file_name},
+                success: function (callback) {
+                    var response = $.parseJSON(callback);
+                    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaa", response);
+                    if(response.status){
+                        ExecuteReTr(response.data, response.no_pass);
+                    }else {
+                        $('#error-message').text(response.message)
+                    }
+                },
+                error:function(){
+                    $('#file-ping-error').text('请求失败');
+                }
+            });  // end ajax
+
+        }
+
+        function delete_file(ths){
+            var file_name = $(ths).parent().siblings().first().attr('file-name');
+            var file_type = $(ths).parent().siblings().first().attr('file-type');
+            console.log(file_name);
+            $.ajax({
+                url:'/ansible/delete_file/',
+                type:'POST',
+                traditional:true,
+                data:{'filename': file_name, 'file_type':file_type},
+                success: function (callback) {
+                    var response = $.parseJSON(callback);
+                    console.log("-------------------------", response);
+                    if(response.status){
+                        Initialise();
+                    }else {
+                        var error_msg = document.createElement('p');
+                        $(error_msg).html(response.message);
+{#                        error_msg.appendTo(ths)#}
+                    }
+                },
+                error:function(){
+                    $('#file-ping-error').text('请求失败');
+                }
+            });  // end ajax
+
+        }
+        function CreateP(attrs,csses,text){
+            var obj= document.createElement('p');       // 创建一个i标签
+            $.each(attrs,function(k,v){                 // {href     id     target}
+                $(obj).attr(k,v);                       // 为创建的i标签 添加属性
+            });
+            $.each(csses,function(k,v){
+                $(obj).css(k,v);
+            });
+            $(obj).html(text);                          // 设置p标签的内容
+            return obj
+        }
+
+{#$(":radio:checked").attr('envir')#}
+    </script>
+
+{% endblock %}
