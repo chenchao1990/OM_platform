@@ -2,12 +2,12 @@
 # _*_coding:utf-8 _*_
 from django.shortcuts import render, HttpResponse
 from Daily_app.manage import task_manager
+from Daily_app.manage import cloud_host_manager
 from Daily_app.views.account import login_sso
 import json
 import datetime
 
 
-@login_sso
 def create_task_data(request):
     year_num = 2017
     task_manager.create_task_data(year_num)
@@ -39,3 +39,23 @@ def task_show_month(request):
             current_day = datetime.datetime.now().day
             ret = task_manager.get_task(s.month, current_day).__dict__
         return HttpResponse(json.dumps(ret))
+
+
+@login_sso
+def cloud_host(request):
+    '''
+    展示公司云主机数据
+    '''
+    user_info = request.userinfo
+    return render(request, 'data_show/cloud_host.html', {'userinfo': user_info})
+
+
+@login_sso
+def get_host_data(request):
+    '''
+    将云主机数量获取 展示到前端
+    '''
+    if request.method == "POST":
+        ret = cloud_host_manager.get_all_host_data().__dict__
+        return HttpResponse(json.dumps(ret))
+

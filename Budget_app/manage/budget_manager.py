@@ -11,6 +11,7 @@ from Budget_app.model_handle import budget_handle
 from Budget_app.execute_excel import read_excel_data
 import datetime
 import time
+import json
 import os
 
 
@@ -56,14 +57,16 @@ def read_data_from_excel(file_name):
         return response
 
 
-def delete_data_excel(delete_list):
+def delete_data_excel(data):
     '''
     删除excel中所选的行数据
     '''
     response = BaseResponse()
     from OM_platform.settings import BUDGET_FILE_DIR
     try:
-        s = read_excel_data.delete_excel_data(BUDGET_FILE_DIR + "test.xls", delete_list)
+        delete_list = json.loads(data.get('delete_list'))
+        current_file = data.get("current_file")
+        s = read_excel_data.delete_excel_data(BUDGET_FILE_DIR + current_file, delete_list)
         response.data = "OKOKOKOKKK"
         response.status = True
         return response
@@ -73,14 +76,17 @@ def delete_data_excel(delete_list):
         return response
 
 
-def save_change_data(change_dict):
+def save_change_data(data):
     '''
-    删除excel中所选的行数据
+    保存表格变更的数据
     '''
     response = BaseResponse()
     from OM_platform.settings import BUDGET_FILE_DIR
     try:
-        s = read_excel_data.save_change_excel(BUDGET_FILE_DIR + "test.xls", change_dict)
+        current_file = data.get('current_file')
+        change_dict = json.loads(data.get('update_data'))
+        print "current_file", current_file
+        s = read_excel_data.save_change_excel(BUDGET_FILE_DIR + current_file, change_dict)
         response.data = "修改成功！！！"
         response.status = True
         return response
@@ -90,15 +96,41 @@ def save_change_data(change_dict):
         return response
 
 
-def add_new_excel_col(add_col_list):
+def add_new_excel_col(data):
     '''
-    删除excel中所选的行数据
+    新增一列表格数据
     '''
     response = BaseResponse()
     from OM_platform.settings import BUDGET_FILE_DIR
     try:
-        s = read_excel_data.add_new_col(BUDGET_FILE_DIR + "test.xls", add_col_list)
+        add_col_list = json.loads(data.get("new_vol"))
+        current_file = data.get("current_file")
+        if add_col_list:
+            read_excel_data.add_new_col(BUDGET_FILE_DIR + current_file, add_col_list)
+        else:
+            print "no________add_____col____data"
+            read_excel_data.add_new_col_end(BUDGET_FILE_DIR + current_file)
         response.data = "增加列成功！"
+        response.status = True
+        return response
+    except Exception, e:
+        print "eeeeeeeeeeeeeeeeeeeeeeeeeeee", e
+        response.message = str(e)
+        return response
+
+
+def add_new_excel_row(data):
+    '''
+    新增一行表格数据
+    '''
+    response = BaseResponse()
+    from OM_platform.settings import BUDGET_FILE_DIR
+    try:
+        add_raw = data.get("action")
+        current_file = data.get("current_file")
+        print "dddddddddddddddddd2222222222222", add_raw, current_file
+        s = read_excel_data.add_new_raw(BUDGET_FILE_DIR + current_file)
+        response.data = "增加行成功！"
         response.status = True
         return response
     except Exception, e:

@@ -94,39 +94,22 @@
                   <button class="btn" onclick="$.CheckAll('#body-data')">全选</button>
                   <button class="btn" onclick="$.UnCheckAll('#body-data')">取消</button>
                   <button class="btn" onclick="DeleteChoiceTr('#body-data')">删除</button>
-                  <button id="edit_mode_target" class="btn" onclick="$.IntoEditMode(this, '#body-data')">进入编辑模式</button>
+                  <button id="edit_mode_target" class="btn" onclick="$.IntoEditMode(this, '#data-table')">进入编辑模式</button>
                   <button class="btn" onclick="Save()">保存</button>
                   <button class="btn" id="add_column" onclick="HideAddColumn(this, '#create-col')">新增列</button>
+                  <button class="btn" id="add_row" onclick="AddRaw(this, '#create-col')">新增行</button>
                 </p>
             </div>
           <div class="widget-content nopadding budget-width">
-            <table class="table table-bordered table-striped with-check">
+            <table class="table table-bordered table-striped with-check" id="data-table" edit-mode='false'>
               <thead id="title_name" style="font-weight: bold">
 
               </thead>
-              <tbody id="body-data" edit-mode='false'>
+              <tbody id="body-data" >
 
               </tbody>
             </table>
           </div>
-{#        <div class="widget-box">#}
-{#          <div class="widget-title">#}
-{#              <span class="icon" style="padding-top: 3px">#}
-{#                <input type="checkbox" id="title-checkbox" name="title-checkbox" />#}
-{#            </span>#}
-{#            <h4 style="padding-left: 10px">服务器采购项目立项信息</h4>#}
-{#          </div>#}
-{#          <div class="widget-content nopadding budget-width">#}
-{#            <table class="table table-bordered table-striped with-check">#}
-{#              <thead id="title_name" style="font-weight: bold">#}
-{##}
-{#              </thead>#}
-{#              <tbody id="body-data" edit-mode='false'>#}
-{##}
-{#              </tbody>#}
-{#            </table>#}
-{#          </div>#}
-{#        </div>#}
 
         </div>
 
@@ -164,7 +147,26 @@
                 }
             });  // end ajax
         }
+        function AddRaw(){
+            var current_file = $("#current_file").attr("file-name");
+            $.ajax({
+                url:'/add_new_row/',
+                type:'POST',
+                traditional:true,
+                data:{"action":"add_row", "current_file":current_file},
+                success: function (data) {
 
+                    var callbacks = $.parseJSON(data);               /* 将后台返回的数据 序列化为字典*/
+                    console.log(callbacks);
+                    ShowFileMsg();
+{#                    EmbedIntoTable(callbacks,"#upfile-list");   // 将所有的数据都添加到id=table-body的tbody标签中#}
+
+                },
+                error:function(){
+                    $('#get-upfile-error').text('更新失败')
+                }
+            });  // end ajax
+        }
         function EmbedIntoTable(response, body){
             var response_status = response.status;
             if(response_status){
@@ -214,8 +216,9 @@
             });  // end ajax
 
         }
+
         function ShowFileMsg (ths) {
-            var file_name = $(ths).parent().siblings().first().attr('file-name');
+            var file_name = $(ths).parent().siblings().first().attr('file-name');   // 获取所选文件的名称
             $('#current_file').text(file_name);
             $('#current_file').attr('file-name', file_name);
             if (file_name){
@@ -321,7 +324,7 @@
         function PutDataIntoPage(data_list,  title_id, body_id){
             var title_list = data_list[0];
             var body_list = data_list.slice(1);
-            ExcelTitle(title_list, title_id);
+            ExcelTitle(title_list, title_id);       //
             ExcelBody(body_list, body_id);
 
         }
@@ -383,10 +386,12 @@
                     input_vals.push(value_dict);
                 });
                 var add_list = JSON.stringify(input_vals);
+                var current_file = $("#current_file").attr("file-name");
+                console.log("fffffffffffffffffffffffff", current_file);
                 $.ajax({
                     url:'/add_new_col/',
                     type:'POST',
-                    data:{'new_vol':add_list},
+                    data:{'new_vol':add_list, 'current_file':current_file},
                     traditional:true,
                     success: function (response) {
                         var callbacks = $.parseJSON(response);
@@ -438,23 +443,25 @@
             $(title_id).append(title_tr1)
 
         }
+{#        展示表格的头信息#}
         function ExcelTitle(title_list, title_id){
             $(title_id).empty();
             AddColumn(title_list, title_id);
 
             var ths = [];
             var title_tip = $.CreateI({'class':'icon-resize-vertical'}, {}, null);
-            ths.push($.CreateTd({}, {}, title_tip));
+            var input_str = '<input type="checkbox" style="zoom:130%; margin: 0;">';
+            ths.push($.CreateTd({}, {}, input_str));
             $.each(title_list, function (index, value) {
                 var value_len = value.length;
                 if(value == '备注'){
-                    ths.push($.CreateTd({'type':'title', 'edit-enable':'true','x-y':index+'-0', 'style':'min-width:150px'}, {}, value));
+                    ths.push($.CreateTd({'edit-type':'input', 'edit-enable':'true','source-data':value, 'x-y':index+'-0', 'style':'min-width:150px'}, {}, value));
                 }else if(value_len <= 6){
-                    ths.push($.CreateTd({'type':'title', 'edit-enable':'true','x-y':index+'-0', 'style':'min-width:55px'}, {}, value));
+                    ths.push($.CreateTd({'edit-type':'input', 'edit-enable':'true','source-data':value, 'x-y':index+'-0', 'style':'min-width:55px'}, {}, value));
                 }else if (value_len > 10){
-                    ths.push($.CreateTd({'type':'title', 'edit-enable':'true','x-y':index+'-0', 'style':'min-width:140px'}, {}, value));
+                    ths.push($.CreateTd({'edit-type':'input', 'edit-enable':'true','source-data':value, 'x-y':index+'-0', 'style':'min-width:140px'}, {}, value));
                 }else if (value_len > 6 && value_len < 10){
-                    ths.push($.CreateTd({'type':'title', 'edit-enable':'true','x-y':index+'-0', 'style':'min-width:90px'}, {}, value));
+                    ths.push($.CreateTd({'edit-type':'input', 'edit-enable':'true','source-data':value, 'x-y':index+'-0', 'style':'min-width:90px'}, {}, value));
                 }
 
             });
@@ -465,6 +472,7 @@
 
         }
 
+{#        展示表格的body部分#}
         function ExcelBody(body_list, body_id){
             $(body_id).empty();
             var input_str = '<input type="checkbox" style="zoom:130%; margin: 0;">';
@@ -480,8 +488,12 @@
             });
             $(body_id).append(trs)
         }
+        function CurrentFile(){
+            return $("#current_file").attr("file-name");
+        }
 
         function DeleteChoiceTr(body_id){
+
             var all_tr_list = $.AllCheckedTr(body_id);
             var ret = window.confirm("确认要删除所选单元行?");
             if(ret){
@@ -489,7 +501,7 @@
                 $.ajax({
                     url:'/delete_checked_tr/',
                     type:'POST',
-                    data:{'delete_list':delete_list},
+                    data:{'delete_list':delete_list, 'current_file':CurrentFile()},
                     traditional:true,
                     success: function (callback) {
                         var callbacks = $.parseJSON(callback);               /* 将后台返回的数据 序列化为字典*/
@@ -505,10 +517,10 @@
         function Save(){
             if($('#edit_mode_target').hasClass('in-editing')){          // 判断进入编辑模式按钮 有此样式
                 console.log('in-editing');
-                $.IntoEditMode('#edit_mode_target','#body-data');     // 如果有此样式 则执行编辑模式的方法
+                $.IntoEditMode('#edit_mode_target','#data-table');     // 如果有此样式 则执行编辑模式的方法
             }
             var change_data = {};
-            $('#body-data').children().each(function(){
+            $('#data-table').children().children().each(function(){
                 var data_y = $(this).attr('row-num');       // 获取行的 y坐标
                 var flag = false;                           // 数据是否发生变更的标识
 
@@ -523,15 +535,15 @@
             });
 
             });
-            console.log("change_data", change_data);
             if(change_data.length<1){            // 如果列表长度小于1 说明 无数据
                 return
             }
             var updateData = JSON.stringify(change_data);        // json转换格式
+            var current_file = $("#current_file").attr("file-name");
             $.ajax({
                 url:'/updata_data/',
                 type:'POST',
-                data:{'update_data':updateData},
+                data:{'update_data':updateData, 'current_file':current_file},
                 success: function (callback) {
                     callback = $.parseJSON(callback);
                     console.log(callback);

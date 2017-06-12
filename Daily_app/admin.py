@@ -37,6 +37,11 @@ class Task(admin.ModelAdmin):
 admin.site.register(task_models.TaskData, Task)
 
 
+class CloudHosts(admin.ModelAdmin):
+    list_display = ("another_name", "company", "host_count")
+admin.site.register(task_models.CloudHosts, CloudHosts)
+
+
 class IptablesUser(admin.ModelAdmin):
     list_display = ("user", "ip", "p_key")
 admin.site.register(user_models.IptablesAuth, IptablesUser)

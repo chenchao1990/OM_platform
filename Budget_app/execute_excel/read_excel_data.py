@@ -76,11 +76,12 @@ def add_new_col(excel_path, add_col_list):
     old_sheet = workbook.sheet_by_index(0)
     all_rows = old_sheet.nrows         # 所有的行数
     all_len = len(add_col_list)         # 获取增加的列数
-    for y in range(all_rows):
+    print "add_col_list", add_col_list
+    for y in range(all_rows):                   # 循环所有的行数据
         current_row_list = old_sheet.row_values(y)    # 循环的当前行数据列表
-        if y == 0:
-            for n in range(all_len):
-                all_col_dict = add_col_list[n]
+        if y == 0:                              # 如果y等于0  当前为第一行
+            for n in range(all_len):            # 循环新增列的数据
+                all_col_dict = add_col_list[n]      # 获取一个新增的列数据字典
                 x = int(all_col_dict['x_num'])
                 value = all_col_dict['input_val']
                 current_row_list.insert(x+n, value)
@@ -89,6 +90,7 @@ def add_new_col(excel_path, add_col_list):
                 all_col_dict = add_col_list[n]
                 x = int(all_col_dict['x_num'])
                 value = ""
+                print "current_row_____________list", current_row_list
                 current_row_list.insert(x+n, value)
         for x, val in enumerate(current_row_list):
             new_sheet.write(y, x, val)
@@ -96,8 +98,54 @@ def add_new_col(excel_path, add_col_list):
     return True
 
 
+def add_new_col_end(excel_path):
+    new_excel = xlwt.Workbook()                 # 用于写入数据的新excel
+    new_sheet = new_excel.add_sheet(u'sheet1')
+
+    workbook = xlrd.open_workbook(excel_path)         # 读取带格式的表格
+    old_sheet = workbook.sheet_by_index(0)
+
+    all_rows = old_sheet.nrows         # 所有的行数
+    all_col = old_sheet.ncols         # 所有的列数
+    # print "all_rows", all_rows, all_col
+    for y in range(all_rows):
+        current_row_list = old_sheet.row_values(y)
+        value = " "
+        current_row_list.append(value)
+        # print "current_row_list>>>>>>>>>>>>>>",current_row_list
+        for x, val in enumerate(current_row_list):
+            new_sheet.write(y, x, val)
+
+    new_excel.save(excel_path)
+    return True
 
 
+def add_new_raw(excel_path):
+    '''
+    新增一行excel表格数据
+    '''
+
+    new_excel = xlwt.Workbook()                 # 用于写入数据的新excel
+    new_sheet = new_excel.add_sheet(u'sheet1')
+
+    workbook = xlrd.open_workbook(excel_path)         # 读取带格式的表格
+    old_sheet = workbook.sheet_by_index(0)
+    all_rows = old_sheet.nrows         # 所有的行数
+    all_col = old_sheet.ncols         # 所有的列数
+    print "all__________________________col", all_col
+    row_len = None
+    for y in range(all_rows):
+        current_row_list = old_sheet.row_values(y)    # 循环的当前行数据列表
+
+        for x, val in enumerate(current_row_list):
+            row_len = len(current_row_list)
+            new_sheet.write(y, x, val)
+    row_list = [" " for i in range(row_len)]
+    for x, val in enumerate(row_list):
+
+        new_sheet.write(all_rows+1, x, val)
+    new_excel.save(excel_path)
+    return True
 
 
 

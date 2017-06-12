@@ -80,4 +80,10 @@ urlpatterns = [
 
     url(r'iptables_api/$', iptables.iptables_api),
 
+
+    url(r'cloud/$', task.cloud_host),
+    url(r'cloud/show_data/$', task.get_host_data),
+
+
+
 ]

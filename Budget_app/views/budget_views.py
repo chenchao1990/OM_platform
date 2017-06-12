@@ -46,11 +46,11 @@ def delete_excel_tr(request):
     '''
     删除行数据
     '''
-    # data = json.loads(request.POST)
+    data = request.POST
     # delete_list = data.get('delete_list')
-    delete_list = json.loads(request.POST.get('delete_list'))
-    print "ddddddddddddddddd", delete_list
-    ret = budget_manager.delete_data_excel(delete_list).__dict__
+    # delete_list = json.loads(request.POST.get('delete_list'))
+    print "ddddddddddddddddd", data
+    ret = budget_manager.delete_data_excel(data).__dict__
 
     return HttpResponse(json.dumps(ret))
 
@@ -63,9 +63,10 @@ def save_change_data(request):
     # data = json.loads(request.POST)
     # delete_list = data.get('delete_list')
     change_data = json.loads(request.POST.get('update_data'))
-
+    data = request.POST
     print "ddddddddddddddddd", change_data
-    ret = budget_manager.save_change_data(change_data).__dict__
+    print "ddddddddddddddddd", request.POST
+    ret = budget_manager.save_change_data(data).__dict__
 
     return HttpResponse(json.dumps(ret))
 
@@ -75,10 +76,23 @@ def add_new_col(request):
     '''
     保存更新的数据
     '''
-    add_col_data = json.loads(request.POST.get('new_vol'))
+    # add_col_data = json.loads(request.POST.get('new_vol'))
+    data = request.POST
+    print "ddddddddddddddddd-------------------------", data
+    ret = budget_manager.add_new_excel_col(data).__dict__
 
-    print "ddddddddddddddddd", add_col_data
-    ret = budget_manager.add_new_excel_col(add_col_data).__dict__
+    return HttpResponse(json.dumps(ret))
+
+
+@login_sso
+def add_new_row(request):
+    '''
+    新增一行
+    '''
+
+    data = request.POST
+    print "ddddddddddddddddd", data
+    ret = budget_manager.add_new_excel_row(data).__dict__
 
     return HttpResponse(json.dumps(ret))
 

@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'delete_checked_tr/$', budget_views.delete_excel_tr),
     url(r'updata_data/$', budget_views.save_change_data),
     url(r'add_new_col/$', budget_views.add_new_col),
+    url(r'add_new_row/$', budget_views.add_new_row),
     url(r'budget_list/$', budget_views.budget_list),
     url(r'show_all_budget/$', budget_views.show_budget_file),
     url(r'upload_budget_file/$', budget_views.upload_budget_file),

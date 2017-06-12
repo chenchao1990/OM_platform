@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ed05c59d-9df7-4198-9cde-5b697c1177eb" name="Default" comment="" />
+    <list default="true" id="ed05c59d-9df7-4198-9cde-5b697c1177eb" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Daily_app/manage/cloud_host_manager.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Daily_app/model_handle/cloud_host_handle.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/data_show/cloud_host.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Budget_app/execute_excel/read_excel_data.py" afterPath="$PROJECT_DIR$/Budget_app/execute_excel/read_excel_data.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Budget_app/manage/budget_manager.py" afterPath="$PROJECT_DIR$/Budget_app/manage/budget_manager.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Budget_app/urls.py" afterPath="$PROJECT_DIR$/Budget_app/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Budget_app/views/budget_views.py" afterPath="$PROJECT_DIR$/Budget_app/views/budget_views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Daily_app/admin.py" afterPath="$PROJECT_DIR$/Daily_app/admin.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Daily_app/models/task_models.py" afterPath="$PROJECT_DIR$/Daily_app/models/task_models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Daily_app/urls.py" afterPath="$PROJECT_DIR$/Daily_app/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Daily_app/views/task.py" afterPath="$PROJECT_DIR$/Daily_app/views/task.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/base/base.html" afterPath="$PROJECT_DIR$/templates/base/base.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/budget/budget_show.html" afterPath="$PROJECT_DIR$/templates/budget/budget_show.html" />
+    </list>
     <ignored path="OM_platform.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -38,87 +54,85 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="password_.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Daily_app/views/password_.py">
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Daily_app/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="18" column="37" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="37" />
+            <state vertical-scroll-proportion="-12.27907">
+              <caret line="84" column="48" selection-start-line="84" selection-start-column="48" selection-end-line="84" selection-end-column="48" />
               <folding>
-                <element signature="e#44#93#0" expanded="true" />
+                <element signature="e#645#677#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="password_manage.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Daily_app/manage/password_manage.py">
+      <file leaf-file-name="cloud_host.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/data_show/cloud_host.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-18.296297">
+              <caret line="50" column="20" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cloud_host_manager.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Daily_app/manage/cloud_host_manager.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="40" column="34" selection-start-line="40" selection-start-column="34" selection-end-line="40" selection-end-column="34" />
+              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
               <folding>
-                <element signature="e#44#99#0" expanded="true" />
+                <element signature="e#45#100#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pwd_query.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Daily_app/execute_cmd/pwd_query.py">
+      <file leaf-file-name="task_models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Daily_app/models/task_models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="121" column="26" selection-start-line="121" selection-start-column="26" selection-end-line="121" selection-end-column="26" />
-              <folding>
-                <element signature="e#45#59#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="revise_root_pwd.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Daily_app/execute_cmd/revise_root_pwd.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="40" column="37" selection-start-line="40" selection-start-column="37" selection-end-line="40" selection-end-column="37" />
+              <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="password_check.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/pwd_manage/password_check.html">
+      <file leaf-file-name="budget_show.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/budget/budget_show.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.3333334">
-              <caret line="185" column="21" selection-start-line="185" selection-start-column="21" selection-end-line="185" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.37642047">
+              <caret line="328" column="0" selection-start-line="328" selection-start-column="0" selection-end-line="328" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="run_script.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/ansible/run_script.html">
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Budget_app/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.457143">
-              <caret line="261" column="44" selection-start-line="261" selection-start-column="44" selection-end-line="261" selection-end-column="44" />
+            <state vertical-scroll-proportion="-5.255814">
+              <caret line="22" column="55" selection-start-line="22" selection-start-column="55" selection-end-line="22" selection-end-column="55" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="file_input_ip.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/ansible/file_input_ip.html">
+      <file leaf-file-name="budget_views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Budget_app/views/budget_views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.1111112">
-              <caret line="3" column="29" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="29" />
+            <state vertical-scroll-proportion="-7.0">
+              <caret line="81" column="32" selection-start-line="81" selection-start-column="32" selection-end-line="81" selection-end-column="32" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="common.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="common.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/js/common.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35278153">
-              <caret line="283" column="62" selection-start-line="283" selection-start-column="62" selection-end-line="283" selection-end-column="62" />
+            <state vertical-scroll-proportion="-17.55814">
+              <caret line="541" column="67" selection-start-line="541" selection-start-column="67" selection-end-line="541" selection-end-column="67" />
               <folding>
                 <element signature="e#21#125#0" expanded="false" />
                 <element signature="e#156#647#0" expanded="false" />
@@ -133,23 +147,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="flying_duck.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ansible_app/views/flying_duck.py">
+      <file leaf-file-name="budget_manager.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Budget_app/manage/budget_manager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="35" column="33" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
+            <state vertical-scroll-proportion="-8.651163">
+              <caret line="111" column="40" selection-start-line="111" selection-start-column="40" selection-end-line="111" selection-end-column="40" />
               <folding>
-                <element signature="e#69#114#0" expanded="true" />
+                <element signature="e#70#125#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/OM_platform/settings.py">
+      <file leaf-file-name="read_excel_data.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Budget_app/execute_excel/read_excel_data.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+              <caret line="110" column="23" selection-start-line="110" selection-start-column="23" selection-end-line="110" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -166,28 +180,19 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/templates/ansible/upload_file.html" />
-        <option value="$PROJECT_DIR$/Budget_app/admin.py" />
-        <option value="$PROJECT_DIR$/Budget_app/execute_excel/read_excel_data.py" />
-        <option value="$PROJECT_DIR$/templates/budget/budget_file_list.html" />
-        <option value="$PROJECT_DIR$/templates/budget/up_excel.html" />
-        <option value="$PROJECT_DIR$/templates/budget/excel_file_list.html" />
-        <option value="$PROJECT_DIR$/Budget_app/urls.py" />
-        <option value="$PROJECT_DIR$/Budget_app/views/budget_views.py" />
-        <option value="$PROJECT_DIR$/Budget_app/manage/budget_manager.py" />
-        <option value="$PROJECT_DIR$/templates/budget/budget_show.html" />
         <option value="$PROJECT_DIR$/templates/pwd_manage/password_server.html" />
         <option value="$PROJECT_DIR$/Daily_app/execute_cmd/change_bmc.py" />
         <option value="$PROJECT_DIR$/Daily_app/manage/account_manager.py" />
         <option value="$PROJECT_DIR$/templates/iptables/iptables_add.html" />
         <option value="$PROJECT_DIR$/templates/iptables/iptables_init.html" />
-        <option value="$PROJECT_DIR$/Daily_app/admin.py" />
         <option value="$PROJECT_DIR$/Daily_app/models/user_models.py" />
         <option value="$PROJECT_DIR$/Daily_app/execute_cmd/ping_host_ip.py" />
-        <option value="$PROJECT_DIR$/templates/base/base.html" />
         <option value="$PROJECT_DIR$/templates/base/form-validation.html" />
         <option value="$PROJECT_DIR$/ansible_app/ansible_method/make_hosts.py" />
         <option value="$PROJECT_DIR$/Daily_app/views/smtp_.py" />
@@ -201,7 +206,6 @@
         <option value="$PROJECT_DIR$/Daily_app/manage/iptables_manage.py" />
         <option value="$PROJECT_DIR$/overall/Task_Queue/RedisQueue.py" />
         <option value="$PROJECT_DIR$/Daily_app/execute_cmd/change_root_pwd.py" />
-        <option value="$PROJECT_DIR$/Daily_app/urls.py" />
         <option value="$PROJECT_DIR$/overall/Task_Queue/queue_manage.py" />
         <option value="$PROJECT_DIR$/templates/pwd_manage/password_init.html" />
         <option value="$PROJECT_DIR$/Daily_app/views/iptables.py" />
@@ -220,6 +224,19 @@
         <option value="$PROJECT_DIR$/templates/ansible/file_input_ip.html" />
         <option value="$PROJECT_DIR$/templates/ansible/run_script.html" />
         <option value="$PROJECT_DIR$/static/js/common.js" />
+        <option value="$PROJECT_DIR$/Daily_app/admin.py" />
+        <option value="$PROJECT_DIR$/Daily_app/model_handle/cloud_host_handle.py" />
+        <option value="$PROJECT_DIR$/templates/base/base.html" />
+        <option value="$PROJECT_DIR$/Daily_app/views/task.py" />
+        <option value="$PROJECT_DIR$/Daily_app/manage/cloud_host_manager.py" />
+        <option value="$PROJECT_DIR$/Daily_app/urls.py" />
+        <option value="$PROJECT_DIR$/templates/data_show/cloud_host.html" />
+        <option value="$PROJECT_DIR$/Daily_app/models/task_models.py" />
+        <option value="$PROJECT_DIR$/Budget_app/urls.py" />
+        <option value="$PROJECT_DIR$/Budget_app/views/budget_views.py" />
+        <option value="$PROJECT_DIR$/Budget_app/manage/budget_manager.py" />
+        <option value="$PROJECT_DIR$/Budget_app/execute_excel/read_excel_data.py" />
+        <option value="$PROJECT_DIR$/templates/budget/budget_show.html" />
       </list>
     </option>
   </component>
@@ -259,7 +276,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -289,20 +305,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="upload_file" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OM_platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OM_platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -321,7 +323,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="pwd_manage" />
+              <option name="myItemId" value="data_show" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -335,11 +337,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ansible" />
+              <option name="myItemId" value="Daily_app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -353,53 +351,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="overall" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OM_platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OM_platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="overall" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Task_Queue" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OM_platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OM_platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ansible_app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OM_platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OM_platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ansible_app" />
+              <option name="myItemId" value="Daily_app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -417,7 +369,25 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ansible_app" />
+              <option name="myItemId" value="Daily_app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="OM_platform" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="OM_platform" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Daily_app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -435,44 +405,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="OM_platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OM_platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OM_platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Daily_app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OM_platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OM_platform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Daily_app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
+              <option name="myItemId" value="Budget_app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -480,24 +419,24 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="last_opened_file_path" value="D:/coder/cmdbdemo" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="recentsLimit" value="5" />
     <property name="FullScreen" value="false" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\chenchao-ds\Desktop\OM_platform\Daily_app\execute_cmd" />
-      <recent name="C:\Users\chenchao-ds\Desktop\OM_platform\overall\Task_Queue" />
-      <recent name="C:\Users\chenchao-ds\Desktop\OM_platform\templates\connection" />
-      <recent name="C:\Users\chenchao-ds\Desktop\OM_platform\templates\base" />
-      <recent name="C:\Users\chenchao-ds\Desktop\OM_platform\templates\pwd_manage" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\chenchao-ds\Desktop\OM_platform\templates\auth" />
       <recent name="C:\Users\chenchao-ds\Desktop\OM_platform\Daily_app\models" />
       <recent name="C:\Users\chenchao-ds\Desktop\OM_platform\Daily_app\views" />
       <recent name="C:\Users\chenchao-ds\Desktop\OM_platform\Daily_app" />
+      <recent name="C:\Users\chenchao-ds\Desktop\OM_platform\templates\base" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\GIT\OM_platform\templates\data_show" />
+      <recent name="C:\Users\chenchao-ds\Desktop\OM_platform\Daily_app\execute_cmd" />
+      <recent name="C:\Users\chenchao-ds\Desktop\OM_platform\overall\Task_Queue" />
+      <recent name="C:\Users\chenchao-ds\Desktop\OM_platform\templates\connection" />
       <recent name="C:\Users\chenchao-ds\Desktop\OM_platform\templates\base" />
     </key>
   </component>
@@ -782,13 +721,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1050" extended-state="7" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18176915" sideWeight="0.4954023" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.09169363" sideWeight="0.4954023" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32988507" sideWeight="0.4978425" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24597701" sideWeight="0.5064935" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2961165" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11149425" sideWeight="0.495685" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.064367816" sideWeight="0.495685" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24597701" sideWeight="0.4935065" order="7" side_tool="false" content_ui="tabs" />
@@ -823,154 +762,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://D:/python2.7.11/Lib/site-packages/ansible/plugins/callback/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3645084">
-          <caret line="28" column="10" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Daily_app/models/iptables_models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Daily_app/models/task_models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15947242">
-          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Daily_app/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="41" selection-start-line="41" selection-start-column="41" selection-end-line="41" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Daily_app/execute_cmd/pwd_query_file.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7889688">
-          <caret line="80" column="38" selection-start-line="80" selection-start-column="38" selection-end-line="80" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Daily_app/models/user_models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35145387">
-          <caret line="58" column="6" selection-start-line="58" selection-start-column="6" selection-end-line="58" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base/form-validation.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.5">
-          <caret line="190" column="10" selection-start-line="190" selection-start-column="10" selection-end-line="214" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/connection/ping.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="68.25926">
-          <caret line="17" column="19" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.962963">
-          <caret line="107" column="35" selection-start-line="107" selection-start-column="35" selection-end-line="107" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Daily_app/views/smtp_.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="33" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Daily_app/manage/smtp_manager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.6511627">
-          <caret line="10" column="54" selection-start-line="10" selection-start-column="54" selection-end-line="10" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/connection/smtp.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-21.407408">
-          <caret line="148" column="39" selection-start-line="148" selection-start-column="39" selection-end-line="148" selection-end-column="39" />
-          <folding>
-            <element signature="e#2696#2820#0#HTML" expanded="false" />
-            <element signature="e#2853#3434#0#HTML" expanded="false" />
-            <element signature="e#2874#3409#0#HTML" expanded="false" />
-            <element signature="e#3483#4169#0#HTML" expanded="false" />
-            <element signature="e#6846#8110#0#HTML" expanded="false" />
-            <element signature="e#8148#9650#0#HTML" expanded="false" />
-            <element signature="e#9704#10467#0#HTML" expanded="false" />
-            <element signature="e#10499#11366#0#HTML" expanded="false" />
-            <element signature="e#11397#12290#0#HTML" expanded="false" />
-            <element signature="e#12327#12975#0#HTML" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ansible_app/manage/file_manager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.116279">
-          <caret line="178" column="35" selection-start-line="178" selection-start-column="24" selection-end-line="178" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Daily_app/execute_cmd/set_manage_pwd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="40" column="4" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm50/system/python_stubs/495368743/_socket.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="579" column="29" selection-start-line="579" selection-start-column="29" selection-end-line="579" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/python2.7.11/Lib/site-packages/paramiko/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/python2.7.11/Lib/site-packages/paramiko/client.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37254903">
-          <caret line="421" column="24" selection-start-line="421" selection-start-column="17" selection-end-line="421" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Daily_app/execute_cmd/execute_iptables.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.12942779">
-          <caret line="32" column="8" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Daily_app/views/connection.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="32" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Daily_app/execute_cmd/ping_host_ip.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5027548">
@@ -989,13 +780,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.27907">
           <caret line="54" column="44" selection-start-line="54" selection-start-column="44" selection-end-line="54" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Daily_app/views/task.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1047,13 +831,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/overall/response/base_response.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12978142">
-          <caret line="5" column="8" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Daily_app/execute_cmd/pwd_query_no_envir.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6612022">
@@ -1076,25 +853,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Daily_app/manage/iptables_api_manager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.418604">
-          <caret line="157" column="77" selection-start-line="157" selection-start-column="50" selection-end-line="157" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Daily_app/views/iptables.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="119" column="51" selection-start-line="119" selection-start-column="51" selection-end-line="119" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Daily_app/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.4418607">
-          <caret line="60" column="50" selection-start-line="60" selection-start-column="50" selection-end-line="60" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1110,7 +872,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="35" column="33" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
           <folding>
-            <element signature="e#69#114#0" expanded="true" />
+            <element signature="e#69#114#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1129,28 +891,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Daily_app/views/password_.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="37" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="37" />
-          <folding>
-            <element signature="e#44#93#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Daily_app/execute_cmd/pwd_import.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334">
           <caret line="165" column="4" selection-start-line="165" selection-start-column="4" selection-end-line="165" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Daily_app/execute_cmd/revise_root_pwd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="40" column="37" selection-start-line="40" selection-start-column="37" selection-end-line="40" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1161,22 +905,54 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Daily_app/manage/password_manage.py">
+    <entry file="file://$PROJECT_DIR$/templates/ansible/file_input_ip.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="40" column="34" selection-start-line="40" selection-start-column="34" selection-end-line="40" selection-end-column="34" />
-          <folding>
-            <element signature="e#44#99#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.03661972">
+          <caret line="3" column="29" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/ansible/run_script.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.026760563">
+          <caret line="261" column="44" selection-start-line="261" selection-start-column="44" selection-end-line="261" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/pwd_manage/password_check.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.026760563">
+          <caret line="185" column="21" selection-start-line="185" selection-start-column="21" selection-end-line="185" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Daily_app/execute_cmd/revise_root_pwd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.02578019">
+          <caret line="40" column="37" selection-start-line="40" selection-start-column="37" selection-end-line="40" selection-end-column="37" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Daily_app/execute_cmd/pwd_query.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.02578019">
           <caret line="121" column="26" selection-start-line="121" selection-start-column="26" selection-end-line="121" selection-end-column="26" />
           <folding>
-            <element signature="e#45#59#0" expanded="true" />
+            <element signature="e#45#59#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Daily_app/manage/password_manage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.02578019">
+          <caret line="40" column="34" selection-start-line="40" selection-start-column="34" selection-end-line="40" selection-end-column="34" />
+          <folding>
+            <element signature="e#44#99#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1189,34 +965,196 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/pwd_manage/password_check.html">
+    <entry file="file://$PROJECT_DIR$/Daily_app/admin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.3333334">
-          <caret line="185" column="21" selection-start-line="185" selection-start-column="21" selection-end-line="185" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.6702849">
+          <caret line="41" column="36" selection-start-line="41" selection-start-column="36" selection-end-line="41" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/ansible/file_input_ip.html">
+    <entry file="file://$PROJECT_DIR$/Budget_app/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.1111112">
-          <caret line="3" column="29" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/ansible/run_script.html">
+    <entry file="file://$PROJECT_DIR$/Daily_app/views/smtp_.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.457143">
-          <caret line="261" column="44" selection-start-line="261" selection-start-column="44" selection-end-line="261" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.5671642">
+          <caret line="26" column="33" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Daily_app/views/password_.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="61" selection-start-line="21" selection-start-column="61" selection-end-line="21" selection-end-column="84" />
+          <folding>
+            <element signature="e#44#93#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Daily_app/manage/account_manager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.07734057">
+          <caret line="3" column="34" selection-start-line="3" selection-start-column="34" selection-end-line="3" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Daily_app/manage/iptables_api_manager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Daily_app/model_handle/iptables_handle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/overall/response/base_response.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.10312076">
+          <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.962963">
+          <caret line="47" column="41" selection-start-line="47" selection-start-column="36" selection-end-line="47" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Daily_app/model_handle/cloud_host_handle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Daily_app/model_handle/task_handle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Daily_app/manage/task_manager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="27" column="10" selection-start-line="27" selection-start-column="10" selection-end-line="27" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Daily_app/views/task.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="59" column="42" selection-start-line="59" selection-start-column="42" selection-end-line="59" selection-end-column="42" />
+          <folding>
+            <element signature="e#44#93#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Daily_app/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.27907">
+          <caret line="84" column="48" selection-start-line="84" selection-start-column="48" selection-end-line="84" selection-end-column="48" />
+          <folding>
+            <element signature="e#645#677#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/data_show/cloud_host.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-18.296297">
+          <caret line="50" column="20" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Daily_app/manage/cloud_host_manager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding>
+            <element signature="e#45#100#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/python2.7.11/Lib/site-packages/xlrd/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33240998">
+          <caret line="380" column="4" selection-start-line="380" selection-start-column="4" selection-end-line="380" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Budget_app/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.255814">
+          <caret line="22" column="55" selection-start-line="22" selection-start-column="55" selection-end-line="22" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Daily_app/models/task_models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Budget_app/manage/budget_manager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.651163">
+          <caret line="111" column="40" selection-start-line="111" selection-start-column="40" selection-end-line="111" selection-end-column="40" />
+          <folding>
+            <element signature="e#70#125#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Budget_app/execute_excel/read_excel_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="110" column="23" selection-start-line="110" selection-start-column="23" selection-end-line="110" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33240998">
+          <caret line="768" column="9" selection-start-line="768" selection-start-column="9" selection-end-line="768" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/js/common.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35278153">
-          <caret line="283" column="62" selection-start-line="283" selection-start-column="62" selection-end-line="283" selection-end-column="62" />
+        <state vertical-scroll-proportion="-17.55814">
+          <caret line="541" column="67" selection-start-line="541" selection-start-column="67" selection-end-line="541" selection-end-column="67" />
           <folding>
             <element signature="e#21#125#0" expanded="false" />
             <element signature="e#156#647#0" expanded="false" />
@@ -1227,6 +1165,22 @@
             <element signature="e#1189#1247#0" expanded="false" />
             <element signature="e#2009#3804#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Budget_app/views/budget_views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.0">
+          <caret line="81" column="32" selection-start-line="81" selection-start-column="32" selection-end-line="81" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/budget/budget_show.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.37642047">
+          <caret line="328" column="0" selection-start-line="328" selection-start-column="0" selection-end-line="328" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
