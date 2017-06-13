@@ -160,7 +160,7 @@ STATICFILES_DIRS = (
 
 
 def now_time():
-    new_time = str(datetime.datetime.now() + datetime.timedelta(hours=8)).split(".")[0]
+    new_time = str(datetime.datetime.now() + datetime.timedelta()).split(".")[0]
     # new_time = str(datetime.datetime.now()).split(".")[0]
     return new_time
 

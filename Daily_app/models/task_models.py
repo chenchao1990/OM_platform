@@ -45,36 +45,6 @@ class ImportPassLog(models.Model):
         verbose_name_plural = "密码导入记录"
 
 
-class CloudHosts(models.Model):
-    '''
-    公司云主机数量
-    '''
-
-    another_name = models.CharField(u"别名", max_length=64, blank=True, null=True)
-    company = models.CharField(u"公司名称", max_length=128, blank=True, null=True)
-    host_count = models.CharField(u"云主机数量", max_length=12, blank=True, null=True)
-
-    def __unicode__(self):
-        return self.company
-
-    class Meta:
-        verbose_name_plural = "公司云主机数量"
-
-
-class CloudHostsCount(models.Model):
-    '''
-    各公司云主机数量
-    '''
-
-    another_name = models.CharField(u"别名", max_length=64, blank=True, null=True)
-    company = models.CharField(u"公司名称", max_length=128, blank=True, null=True)
-    host_count = models.CharField(u"云主机数量", max_length=12, blank=True, null=True)
-
-    def __unicode__(self):
-        return self.company
-
-    class Meta:
-        verbose_name_plural = "公司云主机数量"
 
 
 

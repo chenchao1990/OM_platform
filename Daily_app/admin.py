@@ -5,6 +5,7 @@ from django.contrib import admin
 from Daily_app.models import iptables_models
 from Daily_app.models import user_models
 from Daily_app.models import task_models
+from Daily_app.models import cloud_hosts_models
 
 admin.site.register(iptables_models.IptablesInit)
 admin.site.register(iptables_models.IptablesBelong)
@@ -37,9 +38,14 @@ class Task(admin.ModelAdmin):
 admin.site.register(task_models.TaskData, Task)
 
 
-class CloudHosts(admin.ModelAdmin):
-    list_display = ("another_name", "company", "host_count")
-admin.site.register(task_models.CloudHosts, CloudHosts)
+class Company(admin.ModelAdmin):
+    list_display = ("company_name", "alias_name")
+admin.site.register(cloud_hosts_models.CompanyInfo, Company)
+
+
+class CloudHostCounts(admin.ModelAdmin):
+    list_display = ("company_id", "add_year", "add_month", "add_week", "host_counts")
+admin.site.register(cloud_hosts_models.CloudHostCounts, CloudHostCounts)
 
 
 class IptablesUser(admin.ModelAdmin):

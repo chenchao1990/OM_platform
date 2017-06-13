@@ -83,6 +83,7 @@ urlpatterns = [
 
     url(r'cloud/$', task.cloud_host),
     url(r'cloud/show_data/$', task.get_host_data),
+    url(r'cloud/new_data/$', task.cloud_host),
 
 
 

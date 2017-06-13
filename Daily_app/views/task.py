@@ -47,7 +47,11 @@ def cloud_host(request):
     展示公司云主机数据
     '''
     user_info = request.userinfo
-    return render(request, 'data_show/cloud_host.html', {'userinfo': user_info})
+    ret = cloud_host_manager.get_all_company().__dict__
+    if request.method =="POST":
+        data = request.POST
+        cloud_host_manager.add_new_cloud_data(data)
+    return render(request, 'data_show/cloud_host.html', {'userinfo': user_info, 'all_company': ret})
 
 
 @login_sso
@@ -58,4 +62,15 @@ def get_host_data(request):
     if request.method == "POST":
         ret = cloud_host_manager.get_all_host_data().__dict__
         return HttpResponse(json.dumps(ret))
+
+#
+# @login_sso
+# def add_new_data(request):
+#     '''
+#     将云主机数量获取 展示到前端
+#     '''
+#     if request.method == "POST":
+#         data = request.POST
+#         print "dddddddddddddddddddd", data
+#     return render(request)
 
