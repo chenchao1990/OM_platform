@@ -38,6 +38,9 @@ def add_new_cloud_data(data):
     '''
     response = BaseResponse()
     try:
+        for i, v in data.items():
+            if not v:
+                return
         data_list = [{'company_id_id': i, 'host_counts': value} for i, value in data.items()]
         cloud_host_handle.add_new_cloud_data(data_list)
         response.status = True

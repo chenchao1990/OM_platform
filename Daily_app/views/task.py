@@ -48,7 +48,7 @@ def cloud_host(request):
     '''
     user_info = request.userinfo
     ret = cloud_host_manager.get_all_company().__dict__
-    if request.method =="POST":
+    if request.method == "POST":
         data = request.POST
         cloud_host_manager.add_new_cloud_data(data)
     return render(request, 'data_show/cloud_host.html', {'userinfo': user_info, 'all_company': ret})

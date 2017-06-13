@@ -37,41 +37,67 @@
 
 {% block container %}
     <div class="nopadding" style="margin-top: 20px;">
-    <div id="add-data" class="hide-tr" style="width: 45%;">
+{#    <div id="add-data" class="hide-tr" style="width: 45%;">#}
 
-
-    <div class="widget-box">
-
-        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
-          <h5>录入数据</h5>
-        </div>
-        <div class="widget-content nopadding">
-          <form action="/cloud/new_data/" method="POST" class="form-horizontal">
+{#        <div class="widget-box">#}
+{##}
+{#        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>#}
+{#          <h5>录入数据</h5>#}
+{#        </div>#}
+{#        <div class="widget-content nopadding">#}
+{#          <form action="/cloud/new_data/" method="POST" class="form-horizontal">#}
+{##}
+{#            {% if all_company.status %}#}
+{#                {% for company_dict in all_company.data %}#}
+{#                    <div class="control-group">#}
+{#                      <label class="control-label" style="text-align: center; width: 150px">{{  company_dict.company_name }} :</label>#}
+{#                      <div class="controls" style="margin-left: 150px">#}
+{#                        <input type="text" class="span2" name="{{ company_dict.id }}">#}
+{#                          <input  type="text" name="{{ company_dict.id }}" class="ui-wizard-content">#}
+{#                      </div>#}
+{#                    </div>#}
+{#                {% endfor %}#}
+{#              {% endif %}#}
+{##}
+{#            <div class="form-actions">#}
+{#              <button type="submit" class="btn btn-success">提 交</button>#}
+{#    <input id="next" class="btn btn-primary ui-wizard-content ui-formwizard-button" type="submit" value="Next">#}
+{#            </div>#}
+{#          </form>#}
+{#        </div>#}
+{#        </div>#}
+{#    </div>#}
+    <div id="add-data" class="widget-box hide-tr" >
+          <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
+            <h5>Form validation</h5>
+          </div>
+          <div class="widget-content nopadding">
+            <form class="form-horizontal" method="post" action="/cloud/" name="basic_validate" id="basic_validate" novalidate="novalidate">
 
             {% if all_company.status %}
                 {% for company_dict in all_company.data %}
-                    <div class="control-group">
-                      <label class="control-label" style="text-align: center; width: 150px">{{  company_dict.company_name }} :</label>
-                      <div class="controls" style="margin-left: 150px">
-                        <input type="text" class="span2" name="{{ company_dict.id }}">
-                      </div>
-                    </div>
+              <div class="control-group error">
+                <label class="control-label">{{  company_dict.company_name }}</label>
+                <div class="controls">
+                  <input type="text" name="{{ company_dict.id }}" id="date">
+                    <span for="date" generated="true" class="help-inline">不能为空，必须为数字</span>
+                </div>
+              </div>
                 {% endfor %}
-              {% endif %}
+            {% endif %}
+              <div class="form-actions">
 
-            <div class="form-actions">
-              <button type="submit" class="btn btn-success">提 交</button>
-              <button class="btn btn-primary" onclick="Hide('#add-data')">收起</button>
-            </div>
-          </form>
+                  <input type="submit" value="提 交" class="btn btn-success">
+                  <button class="btn btn-primary" onclick="Hide('#add-data')">收起</button>
+              </div>
+            </form>
+          </div>
         </div>
-        </div>
-    </div>
-
 
     <div  class="widget-box">
         <p>
-            <button class="btn" style="font-weight: bold;" onclick="Show('#add-data')">新增数据</button>
+            <button class="btn btn-success" style="font-weight: bold;" onclick="Show('#add-data')">新增数据</button>
+
         </p>
     </div>
 

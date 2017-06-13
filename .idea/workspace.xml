@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ed05c59d-9df7-4198-9cde-5b697c1177eb" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Daily_app/models/cloud_hosts_models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Daily_app/admin.py" afterPath="$PROJECT_DIR$/Daily_app/admin.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Daily_app/manage/cloud_host_manager.py" afterPath="$PROJECT_DIR$/Daily_app/manage/cloud_host_manager.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Daily_app/model_handle/cloud_host_handle.py" afterPath="$PROJECT_DIR$/Daily_app/model_handle/cloud_host_handle.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Daily_app/models/task_models.py" afterPath="$PROJECT_DIR$/Daily_app/models/task_models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Daily_app/urls.py" afterPath="$PROJECT_DIR$/Daily_app/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Daily_app/views/task.py" afterPath="$PROJECT_DIR$/Daily_app/views/task.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OM_platform/settings.py" afterPath="$PROJECT_DIR$/OM_platform/settings.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/data_show/cloud_host.html" afterPath="$PROJECT_DIR$/templates/data_show/cloud_host.html" />
     </list>
     <ignored path="OM_platform.iws" />
@@ -65,7 +59,7 @@
         <entry file="file://$PROJECT_DIR$/Daily_app/views/task.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+              <caret line="52" column="40" selection-start-line="52" selection-start-column="40" selection-end-line="52" selection-end-column="40" />
               <folding>
                 <element signature="e#44#93#0" expanded="true" />
               </folding>
@@ -77,7 +71,7 @@
         <entry file="file://$PROJECT_DIR$/Daily_app/manage/cloud_host_manager.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+              <caret line="44" column="28" selection-start-line="44" selection-start-column="28" selection-end-line="44" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -96,14 +90,11 @@
       <file leaf-file-name="cloud_host.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/data_show/cloud_host.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3784219">
-              <caret line="159" column="0" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.6897106">
+              <caret line="84" column="20" selection-start-line="84" selection-start-column="20" selection-end-line="84" selection-end-column="20" />
               <folding>
                 <element signature="e#910#935#0#HTML" expanded="true" />
-                <element signature="e#976#995#0#HTML" expanded="true" />
-                <element signature="e#1493#1533#0#HTML" expanded="true" />
-                <element signature="e#1621#1647#0#HTML" expanded="true" />
-                <element signature="e#2200#2226#0#HTML" expanded="true" />
+                <element signature="e#3669#3695#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -113,7 +104,7 @@
         <entry file="file://$PROJECT_DIR$/Daily_app/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="85" column="10" selection-start-line="85" selection-start-column="10" selection-end-line="85" selection-end-column="25" />
+              <caret line="85" column="40" selection-start-line="85" selection-start-column="40" selection-end-line="85" selection-end-column="40" />
               <folding>
                 <element signature="e#645#677#0" expanded="true" />
               </folding>
@@ -214,8 +205,8 @@
         <option value="$PROJECT_DIR$/OM_platform/settings.py" />
         <option value="$PROJECT_DIR$/Daily_app/models/cloud_hosts_models.py" />
         <option value="$PROJECT_DIR$/Daily_app/urls.py" />
-        <option value="$PROJECT_DIR$/Daily_app/views/task.py" />
         <option value="$PROJECT_DIR$/Daily_app/model_handle/cloud_host_handle.py" />
+        <option value="$PROJECT_DIR$/Daily_app/views/task.py" />
         <option value="$PROJECT_DIR$/Daily_app/manage/cloud_host_manager.py" />
         <option value="$PROJECT_DIR$/templates/data_show/cloud_host.html" />
       </list>
@@ -704,7 +695,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32988507" sideWeight="0.4978425" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24597701" sideWeight="0.5064935" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2961165" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2091954" sideWeight="0.495685" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20804597" sideWeight="0.495685" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24597701" sideWeight="0.4935065" order="7" side_tool="false" content_ui="tabs" />
@@ -1112,6 +1103,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Daily_app/model_handle/cloud_host_handle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="21" selection-start-line="0" selection-start-column="21" selection-end-line="0" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Daily_app/models/cloud_hosts_models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1125,7 +1124,7 @@
     <entry file="file://$PROJECT_DIR$/Daily_app/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="85" column="10" selection-start-line="85" selection-start-column="10" selection-end-line="85" selection-end-column="25" />
+          <caret line="85" column="40" selection-start-line="85" selection-start-column="40" selection-end-line="85" selection-end-column="40" />
           <folding>
             <element signature="e#645#677#0" expanded="true" />
           </folding>
@@ -1135,39 +1134,28 @@
     <entry file="file://$PROJECT_DIR$/Daily_app/views/task.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+          <caret line="52" column="40" selection-start-line="52" selection-start-column="40" selection-end-line="52" selection-end-column="40" />
           <folding>
             <element signature="e#44#93#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Daily_app/model_handle/cloud_host_handle.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="21" selection-start-line="0" selection-start-column="21" selection-end-line="0" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Daily_app/manage/cloud_host_manager.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <caret line="44" column="28" selection-start-line="44" selection-start-column="28" selection-end-line="44" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/data_show/cloud_host.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3784219">
-          <caret line="159" column="0" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.6897106">
+          <caret line="84" column="20" selection-start-line="84" selection-start-column="20" selection-end-line="84" selection-end-column="20" />
           <folding>
             <element signature="e#910#935#0#HTML" expanded="true" />
-            <element signature="e#976#995#0#HTML" expanded="true" />
-            <element signature="e#1493#1533#0#HTML" expanded="true" />
-            <element signature="e#1621#1647#0#HTML" expanded="true" />
-            <element signature="e#2200#2226#0#HTML" expanded="true" />
+            <element signature="e#3669#3695#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
