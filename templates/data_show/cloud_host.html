@@ -72,7 +72,7 @@
             <h5>Form validation</h5>
           </div>
           <div class="widget-content nopadding">
-            <form class="form-horizontal" method="post" action="/cloud/" name="basic_validate" id="basic_validate" novalidate="novalidate">
+            <form class="form-horizontal" method="POST" action="/cloud/" name="basic_validate" id="basic_validate" novalidate="novalidate">
 
             {% if all_company.status %}
                 {% for company_dict in all_company.data %}
@@ -86,9 +86,37 @@
                 {% endfor %}
             {% endif %}
               <div class="form-actions">
-
-                  <input type="submit" value="提 交" class="btn btn-success">
+                  <input type="submit" id="submit-data" value="提 交" class="btn btn-success">
                   <button class="btn btn-primary" onclick="Hide('#add-data')">收起</button>
+              </div>
+            </form>
+          </div>
+        </div>
+    <div id="add-company" class="widget-box hide-tr" >
+          <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
+            <h5>Form validation</h5>
+          </div>
+          <div class="widget-content nopadding">
+            <form class="form-horizontal" method="POST" action="/cloud/new_company/" name="basic_validate" id="basic_validate" novalidate="novalidate">
+              <div class="control-group error">
+                <label class="control-label">公司名称：</label>
+                <div class="controls">
+                  <input type="text" name="company_name" id="date2">
+                    <span for="date2" generated="true" class="help-inline">不能为空</span>
+                </div>
+              </div>
+
+              <div class="control-group error">
+                <label class="control-label">公司别名：</label>
+                <div class="controls">
+                  <input type="text" name="alias_name" id="date2">
+                    <span for="date2" generated="true" class="help-inline">不能为空</span>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                  <input type="submit" id="submit-data" value="提 交" class="btn btn-success">
+                  <button class="btn btn-primary" onclick="Hide('#add-company')">收起</button>
               </div>
             </form>
           </div>
@@ -97,6 +125,7 @@
     <div  class="widget-box">
         <p>
             <button class="btn btn-success" style="font-weight: bold;" onclick="Show('#add-data')">新增数据</button>
+            <button class="btn btn-success" style="font-weight: bold;" onclick="Show('#add-company')">新增公司</button>
 
         </p>
     </div>
@@ -112,27 +141,18 @@
               <tr>
                   <th></th>
                   <th></th>
-                  <th id="month_1">6月</th>
+                  <th id="month-num"></th>
                   <th ></th>
                   <th ></th>
-                  <th ></th>
-                  <th id="month_2">7月</th>
-                  <th ></th>
-                  <th ></th>
-                  <th ></th>
+{#                  <th ></th>#}
+{#                  <th id="month_2">7月</th>#}
+{#                  <th ></th>#}
+{#                  <th ></th>#}
+{#                  <th ></th>#}
               </tr>
-            <tr>
-              <th>别名</th>
-              <th>公司名称</th>
-              <th>第一周</th>
-              <th>第二周</th>
-              <th>第三周</th>
-              <th>第四周</th>
-              <th>第一周</th>
-              <th>第二周</th>
-              <th>第三周</th>
-              <th>第四周</th>
-            </tr>
+              <tr id="date-title">
+
+              </tr>
           </thead>
 {#              <tbody id="rule-list" style="font-weight: bold;text-align:center;">#}
           <tbody id="data-list" class="tbody-font">
@@ -148,9 +168,14 @@
 
         $(function(){
 {#            $.InitMenu('#asset_list');          /* 控制左侧菜单的闭合 为点击的按钮添加激活的样式 */#}
+{#            $("#submit-data").click(function () {#}
+{##}
+{#                window.location.href = "http://10.58.60.251:8888/";#}
+{#            });#}
             Initialise();
 
         });
+
         function Initialise () {
             $.ajax({
                 url:'/cloud/show_data/',
@@ -159,7 +184,7 @@
                 data:{'host_data':'get_all'},
                 success: function (callback) {
                     var callbacks = $.parseJSON(callback);               /* 将后台返回的数据 序列化为字典*/
-
+                    console.log(callbacks);
                     EmbedIntoTable(callbacks,"#data-list");   // 将所有的数据都添加到id=table-body的tbody标签中
 
                 },
@@ -169,67 +194,54 @@
             });  // end ajax
         }
 
-        function EmbedIntoTable(response, body){
+        function EmbedIntoTable(response, body) {
             var response_status = response.status;
-            if(response_status){
+            if (response_status) {
+                $('#month-num').text(response.month + '月');
+                $('#date-title').empty();
                 $(body).empty();
-                $.each(response.data,function(key,value){           // 循环数据列表  value 为各个公司的数据字典
+
+                var title_state = false;
+                var data_length = null;
+                $.each(response.data, function (key, value) {           // 循环数据列表  value 为各个公司的数据字
                     var company_alias = value.company_alias;
                     var company_name = value.company_name;
 
+                    if (!title_state) {
+                        console.log("first line---------------------");
+                        $('#date-title').append($.CreateTh({}, {}, "别名"));
+                        $('#date-title').append($.CreateTh({}, {}, "公司名称"));
+                        data_length = value.company_data.length;
+                        $.each(value.company_data, function (index, value_dict) {
+                                    $('#date-title').append($.CreateTh({}, {}, value_dict.add_month + "-" + value_dict.add_day));
+                                }
+                        );
+                        title_state = true;
+                    }
 
                     var tds = [];
-                    tds.push($.CreateTd({'class':'taskDesc'}, {}, company_alias));
-                    tds.push($.CreateTd({'class':'taskDesc'}, {}, company_name));
-                    var current_month = {};
-                    var another_month = {};
-                    $.each(value.company_data, function (index, value_dict) {
-
-                        if (value_dict.add_month == "6"){
-                            if(value_dict.add_week =="1"){
-                                current_month.week1 = $.CreateTd({'class':'taskDesc'}, {}, value_dict.host_counts);
-                            }else if(value_dict.add_week =="2"){
-                                current_month.week2 = $.CreateTd({'class':'taskDesc'}, {}, value_dict.host_counts);
-                            }else if(value_dict.add_week =="3"){
-                                current_month.week3 = $.CreateTd({'class':'taskDesc'}, {}, value_dict.host_counts);
-                            }else if(value_dict.add_week =="4"){
-                                current_month.week4 = $.CreateTd({'class':'taskDesc'}, {}, value_dict.host_counts);
-                            }
-
-                        }else if(value_dict.add_month == "7"){
-                            if(value_dict.add_week =="1"){
-                                another_month.week1 = $.CreateTd({'class':'taskDesc'}, {}, value_dict.host_counts);
-                            }else if(value_dict.add_week =="2"){
-                                another_month.week2 = $.CreateTd({'class':'taskDesc'}, {}, value_dict.host_counts);
-                            }else if(value_dict.add_week =="3"){
-                                another_month.week3 = $.CreateTd({'class':'taskDesc'}, {}, value_dict.host_counts);
-                            }else if(value_dict.add_week =="4"){
-                                another_month.week4 = $.CreateTd({'class':'taskDesc'}, {}, value_dict.host_counts);
-                            }
+                    tds.push($.CreateTh({}, {}, company_alias));
+                    tds.push($.CreateTh({}, {}, company_name));
+                    if (value.company_data.length < data_length){
+                        var sub = data_length - value.company_data.length;
+                        for(var i=0;i<sub;i++){
+                            tds.push($.CreateTh({}, {}, "-"));
                         }
-
+                    }
+                    $.each(value.company_data, function (index, value_dict) {
+                        tds.push($.CreateTh({}, {}, value_dict.host_counts));
                     });
-
-                    var new_list = tds.concat([
-                        current_month.week1,
-                        current_month.week2,
-                        current_month.week3,
-                        current_month.week4
-                    ]).concat([
-                        another_month.week1,
-                        another_month.week2,
-                        another_month.week3,
-                        another_month.week4]);
-
-                    var tr = $.CreateTr({}, {}, new_list);
+                    var tr = $.CreateTr({}, {}, tds);
 
                     $(body).append(tr)
                 })
-            }else {
-                $('#error-message').text(response.message);
             }
-        }
+            else
+                {
+                    $('#error-message').text(response.message);
+                }
 
+        }
         function Show(target){
 
             $(target).removeClass('hide-tr');
@@ -237,6 +249,20 @@
         function Hide(target){
 
             $(target).addClass('hide-tr');
+        }
+        function AddCompany(){
+
+        }
+
+        function ReloadPage(){
+            console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+{#            location.reload();#}
+{#            location.replace('/cloud/');#}
+{#            location.href='www.baidu.com';#}
+            window.location.href = "http://10.58.60.251:8888/";
+{#            window.location.replace(location.href='www.baidu.com');#}
+            alert("qweqeqqweqeqeqeqeqeqewe");
+            console.log("CCCCCCCCCCCCCCCCCCCCCCCCCC");
         }
 
         function CurrentTime(current_time, current_month){

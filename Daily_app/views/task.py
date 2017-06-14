@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # _*_coding:utf-8 _*_
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from Daily_app.manage import task_manager
 from Daily_app.manage import cloud_host_manager
 from Daily_app.views.account import login_sso
@@ -73,4 +73,16 @@ def get_host_data(request):
 #         data = request.POST
 #         print "dddddddddddddddddddd", data
 #     return render(request)
+
+
+@login_sso
+def add_new_company(request):
+    '''
+    将云主机数量获取 展示到前端
+    '''
+    if request.method == "POST":
+        data = request.POST
+        print "dddddddddddddddddddd", data
+        cloud_host_manager.add_new_company(data)
+    return redirect('/cloud/')
 

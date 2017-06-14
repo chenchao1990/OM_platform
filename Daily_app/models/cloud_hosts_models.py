@@ -15,7 +15,7 @@ def get_week_of_month():
     begin = int(datetime.datetime(d.year, d.month, 1).strftime("%W"))
     weekth = end - begin                   # 获取当天是第几周
 
-    return d.year, d.month, weekth
+    return d.year, d.month, d.day, weekth
 
 
 class CompanyInfo(models.Model):
@@ -37,11 +37,12 @@ class CloudHostCounts(models.Model):
     '''
     各个公司的云主机数量
     '''
-    y, m, w = get_week_of_month()
+    y, m, d, w = get_week_of_month()
     company_id = models.ForeignKey('CompanyInfo', blank=True, null=True)
     add_year = models.CharField('year', max_length=4, blank=True, null=True, default=y)
     add_month = models.CharField('month', max_length=4, blank=True, null=True, default=m)
     add_week = models.CharField('week', max_length=4, blank=True, null=True, default=w)
+    add_day = models.CharField('day', max_length=4, blank=True, null=True, default=d)
     host_counts = models.CharField('主机数量', max_length=10, null=True, default=0)
     add_time = models.DateTimeField(blank=True, auto_now_add=True)
 
