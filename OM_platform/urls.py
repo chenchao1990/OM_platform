@@ -18,7 +18,7 @@ from django.contrib import admin
 from Daily_app.views.account import SSOView
 
 urlpatterns = [
-
+    url(r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '/path/to/media'}),
     url(r'^admin/', admin.site.urls),
     url(r'^sso.html', SSOView.as_view()),
     url(r'^', include('Daily_app.urls')),

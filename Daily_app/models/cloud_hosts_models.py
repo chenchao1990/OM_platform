@@ -14,7 +14,7 @@ def get_week_of_month():
     end = int(datetime.datetime(d.year, d.month, d.day).strftime("%W"))
     begin = int(datetime.datetime(d.year, d.month, 1).strftime("%W"))
     weekth = end - begin                   # 获取当天是第几周
-
+    print "=====================", d.year, d.month, d.day, weekth
     return d.year, d.month, d.day, weekth
 
 
