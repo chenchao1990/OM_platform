@@ -4,6 +4,23 @@
 from overall.response.base_response import BaseResponse
 from Daily_app.model_handle import cloud_host_handle
 import datetime
+import hashlib
+
+
+def get_week_of_month():
+    """
+    获取指定的某天是某个月中的第几周
+    周一作为一周的开始
+    """
+    d = datetime.datetime.now()
+    end = int(datetime.datetime(d.year, d.month, d.day).strftime("%W"))
+    begin = int(datetime.datetime(d.year, d.month, 1).strftime("%W"))
+    weekth = end - begin                   # 获取当天是第几周
+    hash = hashlib.md5()
+    hash.update(str(d))
+    md5_str = hash.hexdigest()
+    print "-------------------------", d.year, d.month, d.day, weekth, md5_str, d
+    return d.year, d.month, d.day, weekth, md5_str
 
 
 def get_all_host_data():
@@ -44,7 +61,14 @@ def add_new_cloud_data(data):
         for i, v in data.items():
             if not v:
                 return
-        data_list = [{'company_id_id': i, 'host_counts': value} for i, value in data.items()]
+        y, m, d, w, md5_str = get_week_of_month()
+        data_list = [{'company_id_id': i,
+                      'host_counts': value,
+                      'add_year': y,
+                      'add_month': m,
+                      'add_week': w,
+                      'add_day': d,
+                      'time_md5': md5_str[0:15]} for i, value in data.items()]
         cloud_host_handle.add_new_cloud_data(data_list)
         response.status = True
     except Exception, e:
