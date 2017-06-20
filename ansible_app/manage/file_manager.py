@@ -148,34 +148,54 @@ def send_file(file_dir, data, username):
 def run_script(script_dir, host_dir, data, username):
     '''
     调用API 和 上传的IP文件去运行脚本
+    data = {u'ip_type': [u'file'], u'envir': [u'T'], u'script_name': [u'ip_show.sh'], u'ip_list': [u'']}
     '''
     response = BaseResponse()
     try:
         # 开始读取文件中的内容
-        script_name = data.get('script_name', None)
         envir = data.get('envir', None)
         if envir is None:
             response.message = u'请检查所选环境'
             return response
-        host_path = host_dir + "host_ip.xlsx"
-        is_have = os.path.isfile(host_path)
-        if not is_have:
-            response.message = u'指定IP文件不存在'
-            return response
+
+        if data.get('ip_type') == 'input':           # 页面点击的是 手动输入IP地址
+            print 'ip_type', data.get('ip_type')
+            ip_str = data.get('ip_list', None).strip()
+            if not ip_str:
+                response.message = u'请输入IP地址'
+                return response
+            ip_list = ip_str.split(",")
+            ip_list = [i.strip() for i in ip_list]
+            pwd_check = pwd_query.main(ip_list, [], envir)
+            if len(pwd_check) == 0:
+                response.pwd_state = False
+                response.message = u"密码检测失败!!请检查所选环境和密码是否存在~"
+                return response
+            no_pass_host = check_no_password_host(ip_list, pwd_check)
+            create_host_file(pwd_check)
+        else:
+
+            host_path = host_dir + "host_ip.xlsx"
+            is_have = os.path.isfile(host_path)
+            if not is_have:
+                response.message = u'指定IP文件不存在'
+                return response
+
+            ip_info_dict = read_ip_from_file(host_path)
+            ip_list = ip_info_dict['ip_list']
+            pwd_check = pwd_query.main(ip_list, ip_info_dict['ip_info_list'], envir)
+            if len(pwd_check) == 0:
+                response.pwd_state = False
+                response.message = u"密码检测失败!!请检查所选环境和密码是否存在~"
+                return response
+            no_pass_host = check_no_password_host(ip_list, pwd_check)
+            create_host_file(pwd_check)                     # 生成一个全新的hosts文件
+        script_name = data.get('script_name', None)
         script_path = script_dir + script_name
         script_have = os.path.isfile(script_path)
         if not script_have:
             response.message = u'脚本文件不存在'
             return response
-        ip_info_dict = read_ip_from_file(host_path)
-        ip_list = ip_info_dict['ip_list']
-        pwd_check = pwd_query.main(ip_list, ip_info_dict['ip_info_list'], envir)
-        if len(pwd_check) == 0:
-            response.pwd_state = False
-            response.message = u"密码检测失败!!请检查所选环境和密码是否存在~"
-            return response
-        no_pass_host = check_no_password_host(ip_list, pwd_check)
-        create_host_file(pwd_check)                     # 生成一个全新的hosts文件
         send_file_obj = Ansible_API()
         send_result = send_file_obj.run_script(script_path)
         log_manager.ansible_script_log(username, ip_list, script_name)

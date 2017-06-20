@@ -15,7 +15,6 @@ def password_check(request):
     user_info = request.userinfo
     if request.method == "POST":
         data = request.POST
-        print "ddddddddddddddddddddddd", data
         ret = password_manage.password_check(data).__dict__
         return HttpResponse(json.dumps(ret))
 

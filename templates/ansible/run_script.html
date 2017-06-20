@@ -257,16 +257,26 @@
         }
 
         function RunScript(ths){
-            var file_name = $(ths).parent().siblings().first().attr('file-name');
+            var file_name = '';   // 获取点击的脚本名称
             var check_envir = $(":radio:checked").attr('envir');      // 获取所选环境
             var current_id = $.GetCurrentActive("#ip_select");
+            var ip_type = "file";
+            var ip_list = '';
             console.log("cccccccccccccccccc", current_id);
+            if(current_id == "#input_ip"){                  //当处在 输入ip地址页面时
+                ip_type = "input";
+                ip_list = $('#ip-list').val();
+                console.log("=====================", ip_list)
+            }else {                                         // 当处在文件ip页面时
+
+            }
+            file_name = $(ths).parent().siblings().first().attr('file-name');   // 获取点击的脚本名称
             $('#error-message').empty();
             $.ajax({
                 url:'/ansible/trigger_script/',
                 type:'POST',
                 traditional:true,
-                data:{'script_name':file_name, 'envir':check_envir},
+                data:{'script_name':file_name, 'envir':check_envir, 'ip_type': ip_type, 'ip_list':ip_list},
                 success: function (callback) {
                     var response = $.parseJSON(callback);
                     console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaa", response);

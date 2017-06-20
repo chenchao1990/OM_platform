@@ -279,11 +279,10 @@
             $(obj).html(text);                          // 设置p标签的内容
             return obj
         },
-        'GetCurrentActive':function(li_obj){
-            console.log("lllllllllllllllllll", li_obj);
-            console.log($(li_obj).find("li[class='active']"));
-            return $(li_obj).find("li[class='active']").child().attr('href');
 
+        'GetCurrentActive':function(li_obj){
+            var active_obj = $(li_obj).find("li[class='active']");
+            return $(active_obj).children().first().attr('href');
         },
 
         /*

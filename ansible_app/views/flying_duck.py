@@ -120,6 +120,7 @@ def run_script(request):
         script_dir = settings.SCRIPT_FILE_DIR
         host_dir = settings.IP_FILE_DIR
         data = request.POST
+        print "ansible  script data", data
         ret = file_manager.run_script(script_dir, host_dir, data, username).__dict__
         return HttpResponse(json.dumps(ret))
 

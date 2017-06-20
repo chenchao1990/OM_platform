@@ -85,6 +85,7 @@ urlpatterns = [
     url(r'cloud/show_data/$', task.get_host_data),
     url(r'cloud/new_data/$', task.cloud_host),
     url(r'cloud/new_company/$', task.add_new_company),
+    url(r'cloud/delete_data/$', task.delete_day_data),
 
 
 

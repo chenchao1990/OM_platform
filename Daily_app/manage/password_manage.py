@@ -232,7 +232,7 @@ def change_pwd_and_save(data, up_dir, username):
             response.message = u'指定文件不存在'
             return response
         ip_info_dict = read_change_info(file_dir)           # 从文件中读取的密码数据
-
+        print "ip_info_dict", ip_info_dict
         change_re_list, queue_name = revise_root_pwd.change_host_pwd(ip_info_dict['all_info_list'])     # 调取脚本 修改密码
 
         # change_obj = change_root_pwd.ChangePassword()     # 调取脚本 修改密码
@@ -244,7 +244,9 @@ def change_pwd_and_save(data, up_dir, username):
         s = ip_info_dict['all_info_list']
         for i in s:
             i.pop(2)
-        save_dict = pwd_import.main(ip_info_dict['ip_list'], ip_info_dict['all_info_list'], envir)      # 保存密码
+        new_ip, new_info = check_change_re(change_re_list, ip_info_dict['ip_list'], ip_info_dict['all_info_list'])
+
+        save_dict = pwd_import.main(new_ip, new_info, envir)      # 保存密码
         print "password_save result", save_dict
         final_dict['save_re'] = save_dict
 
@@ -257,6 +259,26 @@ def change_pwd_and_save(data, up_dir, username):
         response.message = str(e)
         print str(e)
         return response
+
+
+def check_change_re(change_re_list, ip_list, ip_info_list):
+    '''
+    将修改失败的IP筛选出来 然后从原有的IPinfo dict中删除 不保存到密码库
+    '''
+    change_err = []
+    for e in change_re_list:
+        if e['status'] != 'successful':     # 密码修改失败的
+            change_err.append(e['ip'])      # 先将修改错误的IP 放入一个列表，根据这个列表去删除IP info dict中的数据
+    print "change_err", change_err
+    for ip in ip_list:
+        if ip in change_err:
+            ip_list.remove(ip)          # 将修改错误的IP 从IP list中删除
+    print "new_ip_list", ip_list
+    for info_list in ip_info_list:
+        if info_list[0] in change_err:
+            ip_info_list.remove(info_list)
+    print "new_ip_info_list", ip_info_list
+    return ip_list, ip_info_list
 
 
 def change_manager_pwd(data, manage_pwd_dir, username):
@@ -379,14 +401,16 @@ def read_change_info(file_dir):
                 continue
             if not current_list[2]:
                 continue
-            if current_list[3]:                 # 新密码
-
-                pwd = current_list[3]
-                # pwd = re.sub("\'", '*', pwd)
-                current_list[3] = pwd
-
-            else:
+            if not current_list[3]:
                 continue
+            # if current_list[3]:                 # 新密码
+            #
+            #     pwd = current_list[3]
+            #     pwd = re.sub("\'", '*', pwd)
+                # current_list[3] = pwd
+            # else:
+            #     continue
+
             if type(current_list[2]) == float:      # 如果密码是浮点数 将其转换
                 current_list[2] = str(int(current_list[2]))
             if type(current_list[3]) == float:
@@ -395,8 +419,8 @@ def read_change_info(file_dir):
                 current_list[i] = current_list[i].strip()
 
             print "new_current_list", current_list
-            ip_list.append(current_list[0].strip())
-            ip_info_list.append(current_list)
+            ip_list.append(current_list[0].strip())     # 只存放IP
+            ip_info_list.append(current_list)           # 存放全部的信息 ip root 新旧密码
         ip_info['all_info_list'] = ip_info_list
         ip_info['ip_list'] = ip_list
         return ip_info

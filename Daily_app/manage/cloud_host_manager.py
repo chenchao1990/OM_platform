@@ -102,3 +102,22 @@ def add_new_company(data):
         response.message = e
         print "add  eeeeeeeeeeeeeeeeeeee", e
     return response
+
+
+def delete_day_data(data):
+    '''
+    添加一个新公司
+    :param data:
+    :return:
+    '''
+    response = BaseResponse()
+    try:
+
+        md5_str = data.get("md5_str", None)
+        print "alias_name>>>>>>>>>>>>>>>", md5_str
+        cloud_host_handle.delete_data_by_md5(md5_str)
+        response.status = True
+    except Exception, e:
+        response.message = e
+        print "add  eeeeeeeeeeeeeeeeeeee", e
+    return response

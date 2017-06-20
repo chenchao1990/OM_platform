@@ -15,7 +15,7 @@ def get_all_data(month_num):
     all_company = cloud_hosts_models.CompanyInfo.objects.all()
     for i in all_company:
         id_list.append((i.id, i.company_name, i.alias_name))            # 取出公司的名称 别名 id
-    value_list = ['host_counts', 'add_year', 'add_month', 'add_day', 'add_week']
+    value_list = ['host_counts', 'add_year', 'add_month', 'add_day', 'add_week', 'time_md5']
     for company_tuple in id_list:
         company_dict = {'company_name': company_tuple[1], 'company_alias': company_tuple[2], 'month_num': month_num}
         company_data = cloud_hosts_models.CloudHostCounts.objects.filter(company_id=company_tuple[0], add_month=month_num).order_by('add_time').values(*value_list)
@@ -44,7 +44,7 @@ def add_new_cloud_data(data_list):
 
 def add_new_company(data_dict):
     '''
-    向主机数据表添加新的数据
+    新增一个公司
     '''
     ret = cloud_hosts_models.CompanyInfo.objects.create(**data_dict)
     return ret
@@ -56,6 +56,15 @@ def get_company(name):
     '''
 
     ret = cloud_hosts_models.CompanyInfo.objects.filter(alias_name=name).count()
+    return ret
+
+
+def delete_data_by_md5(md5_str):
+    '''
+    获取一个公司名称:
+    '''
+
+    ret = cloud_hosts_models.CloudHostCounts.objects.filter(time_md5=md5_str).delete()
     return ret
 
 

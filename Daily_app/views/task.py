@@ -86,3 +86,15 @@ def add_new_company(request):
         cloud_host_manager.add_new_company(data)
     return redirect('/cloud/')
 
+
+@login_sso
+def delete_day_data(request):
+    '''
+    将云主机数量获取 展示到前端
+    '''
+    if request.method == "POST":
+        data = request.POST
+        print "dddddddddddddddddddd", data
+        ret = cloud_host_manager.delete_day_data(data).__dict__
+    return HttpResponse(json.dumps(ret))
+

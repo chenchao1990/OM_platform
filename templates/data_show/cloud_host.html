@@ -30,7 +30,9 @@
             display: none;
         }
 
-
+        .click-point{
+            cursor: pointer
+        }
     </style>
 {% endblock %}
 
@@ -126,6 +128,7 @@
         <p>
             <button class="btn btn-success" style="font-weight: bold;" onclick="Show('#add-data')">新增数据</button>
             <button class="btn btn-success" style="font-weight: bold;" onclick="Show('#add-company')">新增公司</button>
+            <button class="btn btn-danger" style="font-weight: bold;" onclick="CheckHide('#delete-data')">删除数据</button>
 
         </p>
     </div>
@@ -141,7 +144,7 @@
               <tr>
                   <th></th>
                   <th></th>
-                  <th id="month-num"></th>
+                  <th id="month-num" ></th>
                   <th ></th>
                   <th ></th>
 {#                  <th ></th>#}
@@ -150,9 +153,8 @@
 {#                  <th ></th>#}
 {#                  <th ></th>#}
               </tr>
-              <tr id="date-title">
-
-              </tr>
+              <tr id="delete-data" class="hide-tr"></tr>
+              <tr id="date-title" ></tr>
           </thead>
 {#              <tbody id="rule-list" style="font-weight: bold;text-align:center;">#}
           <tbody id="data-list" class="tbody-font">
@@ -186,7 +188,7 @@
                     var callbacks = $.parseJSON(callback);               /* 将后台返回的数据 序列化为字典*/
                     console.log(callbacks);
                     EmbedIntoTable(callbacks,"#data-list");   // 将所有的数据都添加到id=table-body的tbody标签中
-
+                    BindDelete()
                 },
                 error:function(){
                     $('#error-message').text('请求失败！！')
@@ -203,6 +205,7 @@
 
                 var title_state = false;
                 var data_length = null;
+
                 $.each(response.data, function (key, value) {           // 循环数据列表  value 为各个公司的数据字
                     var company_alias = value.company_alias;
                     var company_name = value.company_name;
@@ -211,10 +214,14 @@
                         console.log("first line---------------------");
                         $('#date-title').append($.CreateTh({}, {}, "别名"));
                         $('#date-title').append($.CreateTh({}, {}, "公司名称"));
+                        $("#delete-data").append($.CreateTh({}, {}, null));
+                        $("#delete-data").append($.CreateTh({}, {}, null));
                         data_length = value.company_data.length;
                         $.each(value.company_data, function (index, value_dict) {
-                                    $('#date-title').append($.CreateTh({}, {}, value_dict.add_month + "-" + value_dict.add_day));
-                                }
+                            console.log("mmmmmmmmmmmmmmmmmmmm", value_dict.time_md5);
+                            $("#delete-data").append($.CreateTh({'class':'click-point', 'md5-str':value_dict.time_md5}, {}, '<i class="icon-minus-sign"></i>'));
+                            $('#date-title').append($.CreateTh({'md5-str':value_dict.time_md5}, {}, value_dict.add_month + "-" + value_dict.add_day));
+                            }
                         );
                         title_state = true;
                     }
@@ -242,6 +249,14 @@
                 }
 
         }
+        function CheckHide(target){
+            var s = $(target).hasClass('hide-tr');
+            if(s){
+                $(target).removeClass('hide-tr');
+            }else {
+                $(target).addClass('hide-tr');
+            }
+        }
         function Show(target){
 
             $(target).removeClass('hide-tr');
@@ -253,7 +268,32 @@
         function AddCompany(){
 
         }
+        function BindDelete(){
 
+            console.log("ddddddddddddddddddddddd");
+            var all_del_list = document.getElementsByClassName('icon-minus-sign');
+            $(all_del_list).bind('click', function () {
+
+                var ret = window.confirm("确认要删除所选单元行?");
+                if(ret){
+                    var md5_str = $(this).parent().attr('md5-str');     // 获取点击的md5值
+                    console.log("mmmmmmmmmmmmmmmmmmmm", md5_str);
+                    $.ajax({
+                        url: '/cloud/delete_data/',
+                        type: 'POST',
+                        data:{'md5_str':md5_str},
+                        traditional:true,
+                        success: function (callback) {
+                            console.log(callback);
+                            window.location.replace("http://10.58.60.251:8888/cloud/")
+                        }
+                    })
+
+                }
+
+            })
+
+        }
         function ReloadPage(){
             console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
 {#            location.reload();#}
