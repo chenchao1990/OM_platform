@@ -27,15 +27,15 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
-# SSO_DOMAIN = "10.126.59.18:8080"
-SSO_DOMAIN = "popeye.ds.gome.com.cn"
-# CMDB_HOST = "10.58.60.251:8888"
-CMDB_HOST = "gom.ds.gome.com.cn"
+SSO_DOMAIN = "10.126.59.18:8080"
+# SSO_DOMAIN = "popeye.ds.gome.com.cn"
+CMDB_HOST = "10.58.60.251:8888"
+# CMDB_HOST = "gom.ds.gome.com.cn"
 
 SSO_TOKEN = "gome_sso_token"
 
-# APP_KEY = "7b37ca05cb0a4e759fdfc28bdb6ab31b"
-APP_KEY = "4329927328774d2d921a8fa32d7171d1"
+APP_KEY = "7b37ca05cb0a4e759fdfc28bdb6ab31b"
+# APP_KEY = "4329927328774d2d921a8fa32d7171d1"
 
 
 # Application definition
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'Daily_app',
     'ansible_app',
     'Budget_app',
+    'IDC_app',
 ]
 
 MIDDLEWARE_CLASSES = [
