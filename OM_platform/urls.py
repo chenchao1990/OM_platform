@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^', include('Daily_app.urls')),
     url(r'^', include('ansible_app.urls')),
     url(r'^', include('Budget_app.urls')),
+    url(r'^', include('IDC_app.urls')),
 ]

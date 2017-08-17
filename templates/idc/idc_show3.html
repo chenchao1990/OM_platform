@@ -1,0 +1,330 @@
+{% extends 'base/base.html' %}
+{% block css %}
+    <link rel="stylesheet" href="/static/css/colorpicker.css" />
+    <link rel="stylesheet" href="/static/css/datepicker.css" />
+    <link rel="stylesheet" href="/static/css/uniform.css" />
+    <link rel="stylesheet" href="/static/css/select2.css" />
+    <link rel="stylesheet" href="/static/css/bootstrap-wysihtml5.css" />
+    <style>
+        .true-rule{
+            color: green;
+        }
+        .false-rule{
+            color: red;
+        }
+        .error-msg{
+            color: red;
+            font-weight: bold;
+        }
+        .have_windows{
+            font-size: 12px;
+            font-weight: bold;
+            color: #FF5722;
+        }
+        .special_user{
+            margin-left: 15px;
+            margin-bottom: 0; !important;
+        }
+    .control-label1{
+        padding-top: 15px;
+        width: 60px;
+        float: left;
+        text-align: right;
+    }
+    .table td{
+        text-align:center; !important;
+    }
+    </style>
+{% endblock %}
+
+
+{% block container %}
+    <div class="nopadding" style="margin-top: 20px;">
+
+        <div class="widget-box">
+          <div class="widget-title">
+            <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#tab1">物理机信息查询</a></li>
+
+            </ul>
+          </div>
+
+          <div class="widget-content tab-content" style="padding: 5px">
+
+              <div id="tab1" style="font-weight: bold" class="tab-pane active">
+                <div >
+                  <div class="controls">
+
+                        <form class="form-horizontal" method="POST" action="/idc/" name="basic_validate" id="basic_validate" novalidate="novalidate">
+
+                              <div class="control-group error">
+                                <label class="control-label1" STYLE="font-weight: bold">SN号</label>
+                                <div class="controls" style="margin-left: 70px;">
+                                  <input type="text" name="sn" id="date" style="border-color: #ccc">
+                                </div>
+                              </div>
+
+                              <div style="padding: 5px;margin-left: 15px">
+                                  <input type="submit" id="submit-data" value="提 交" class="btn btn-success">
+                              </div>
+                        </form>
+                    <div class="error-msg" id="error-message" ></div>
+                  </div>
+                </div>
+
+              </div>
+
+
+          </div>
+        </div>
+
+        <div>
+            <p id="current_file" style="font-size: 15px;color: red;"></p>
+            <p>
+              <button class="btn" onclick="$.CheckAll('#body-data')">全选</button>
+              <button class="btn" onclick="$.UnCheckAll('#body-data')">取消</button>
+              <button id="edit_mode_target" class="btn" onclick="$.IntoEditModeOther(this, '#data-table')">进入编辑模式</button>
+              <button class="btn" onclick="Save()">保存</button>
+            </p>
+        </div>
+
+         <div class="widget-box">
+           <div class="widget-content nopadding budget-width">
+            <table class="table table-bordered table-striped with-check">
+              <thead id="title_name" style="font-weight: bold">
+
+              </thead>
+              <tbody id="body-data" >
+
+              </tbody>
+            </table>
+          </div>
+          <div class="widget-content nopadding budget-width">
+{#            <table class="table table-bordered table-striped with-check">#}
+
+            <table class="table table-bordered table-striped with-check">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" /></th>
+                  <th>项目类型</th>
+                  <th>IP地址</th>
+                  <th>应用类型</th>
+                  <th>设备状态</th>
+                  <th>资产编号/SN号</th>
+                  <th>设备品牌</th>
+                  <th>所属人</th>
+                  <th>所属机房</th>
+                </tr>
+              </thead>
+              <tbody edit-mode='false' id="data-table">
+              {% if ret.status %}
+                  {% for data_dict in ret.data %}
+
+                      <tr data-id={{ data_dict.id }}>
+                          <td><input type="checkbox" /></td>
+                          <td edit-enable = 'true' edit-type='select'>{{ data_dict.pro_type }}</td>
+                          <td>{{ data_dict.ip }}</td>
+                          <td>{{ data_dict.app_type }}</td>
+                          <td>{{ data_dict.device_status }}</td>
+                          <td>{{ data_dict.sn }}</td>
+                          <td>{{ data_dict.brand }}</td>
+                          <td>{{ data_dict.own_person }}</td>
+                          <td>{{ data_dict.idc }}</td>
+                      </tr>
+                  {% endfor %}
+              {% endif %}
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td>Row 1</td>
+                  <td>Row 2</td>
+                  <td>Row 3</td>
+                  <td>Row 4</td>
+                  <td>Row 5</td>
+                  <td>Row 6</td>
+                  <td>Row 7</td>
+                  <td>Row 8</td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+    </div>
+{% endblock %}
+
+
+{% block js %}
+
+    <script type="text/javascript">
+
+{#        $(function(){#}
+{#            $.InitMenu('#pwd-manager', '#password-check');          /* 控制左侧菜单的闭合 为点击的按钮添加激活的样式 */#}
+{#            Initialise();#}
+{#        });#}
+
+        function Initialise() {
+            $.ajax({
+                url:'/password/get_pwd_file/',
+                type:'POST',
+                traditional:true,
+                success: function (data) {
+
+                    var callbacks = $.parseJSON(data);               /* 将后台返回的数据 序列化为字典*/
+
+                    EmbedIntoTable(callbacks,"#file-list");   // 将所有的数据都添加到id=table-body的tbody标签中
+
+                },
+                error:function(){
+                    $('#get-file-error').text('获取文件列表失败')
+                }
+            });  // end ajax
+        }
+
+
+        function SubmitValue(){
+            var input_ips = $('#ip-list').val();                        // 获取输入的ip
+            var check_envir = $(":radio:checked").attr('envir');        // 获取所选环境
+            var special_user = $.trim($("#special_user").val());        // 获取输入的指定用户
+            console.log("ssssssssssss", special_user);
+            if($('#windows').is(':checked')) {
+                var is_win = "true";
+            }else {
+                var is_win = "false"
+            }
+
+            $('#error-message').empty();
+            $.ajax({
+                url:'/password/check/',
+                type:'POST',
+                traditional:true,
+                data:{'ip_list':input_ips, 'envir':check_envir, 'is_win':is_win, 's_user':special_user},
+                success: function (data) {
+                    var response = $.parseJSON(data);
+                    if(response.status){
+                        ExecuteReTr(response.data, '#pwd-list');
+                    }else {
+                        $('#error-message').text(response.message);
+                    }
+                },
+                error:function(){
+                    $('#error-message').text('获取密码失败');
+                }
+            });  // end ajax
+
+        }
+
+        function EmbedIntoTable(response, body){
+            var response_status = response.status;
+            if(response_status){
+                $(body).empty();
+                $.each(response.data,function(index,file_name){
+
+                    var tds = [];
+                    tds.push($.CreateTd({'class':'taskDesc','file-name':file_name}, {}, file_name));
+                    tds.push($.CreateTd({'class':'taskOptions'}, {}, $.CreateInput({'type':'button','onclick':'RunFile(this)', 'value':'执行'}, {})));
+
+                    var tr = $.CreateTr({}, {}, tds);
+
+                    $(body).append(tr)
+                })
+            }else {
+                $('#get-file-error').text(response.message);
+            }
+        }
+        function ExecuteReTr(result_list, rule_body){
+            $(rule_body).empty();
+            $('#ip-list').val('');
+            $('#error-message').text('');
+
+            $.each(result_list, function (index, data_dict) {
+                var ip = data_dict.ip;              // IP地址
+                var user = data_dict.user;              // IP地址
+                var pwd = data_dict.pwd;              // IP地址
+                var new_pwd =pwd.replace('<', '&lt;').replace('>', '&gt');
+                var rule_tds = [];
+                rule_tds.push($.CreateTd({'class':'taskDesc'}, {}, ip));
+                rule_tds.push($.CreateTd({'class':'taskDesc'}, {}, user));
+                rule_tds.push($.CreateTd({'class':'taskDesc'}, {}, new_pwd));
+
+                var rule_tr = $.CreateTr({}, {}, rule_tds);
+                $(rule_body).append(rule_tr);
+
+
+            });
+        }
+
+        function upload_file(){
+            $("#file-wait").text("上传中...");
+              var form = new FormData(document.getElementById("form_file"));
+              $.ajax({
+              url:"/password/upload_pwd_file/",
+              type:"post",
+              data:form,
+              cache: false,
+              processData: false,
+              contentType: false,
+              success:function(data){
+                    $("#file-wait").text(" ");
+                  var response = $.parseJSON(data);
+                    if(response.status){
+                        Initialise();
+                    }else {
+                        $('#file-error').text(response.message);
+                    }
+              },
+              error:function(){
+                  $('#file-error').text("请求失败");
+                  $("#file-wait").text(" ");
+               }
+              });
+            }
+
+        function RunFile(ths){
+            var file_name = $(ths).parent().siblings().first().attr('file-name');
+            var check_envir = $(":radio:checked").attr('envir');      // 获取所选环境
+            $.ajax({
+                url:'/password/run_check_file/',
+                type:'POST',
+                traditional:true,
+                data:{'file_name':file_name, 'envir':check_envir},
+                success: function (callback) {
+                    var response = $.parseJSON(callback);
+                    if(response.status){
+                        ExecuteReTr(response.data, '#file-pwd-list');
+                    }else {
+                        $('#file-ping-error').text(response.message);
+                    }
+                },
+                error:function(){
+                    $('#file-ping-error').text('请求失败');
+                }
+            });  // end ajax
+
+        }
+
+        function delete_pwd_file(){
+            $.ajax({
+                url:'/password/delete_pwd_file/',
+                type:'POST',
+                traditional:true,
+                data:{'opt':'delete'},
+                success: function (callback) {
+                    var response = $.parseJSON(callback);
+                    if(response.status){
+                        Initialise();
+                    }else {
+                        $('#file-ping-error').text(response.message);
+                    }
+                },
+                error:function(){
+                    $('#file-ping-error').text('请求失败');
+                }
+            });  // end ajax
+
+        }
+{#$(":radio:checked").attr('envir')#}
+    </script>
+
+{% endblock %}

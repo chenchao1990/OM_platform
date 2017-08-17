@@ -1,0 +1,199 @@
+{% extends 'base/base.html' %}
+{% block css %}
+    <link rel="stylesheet" href="/static/css/colorpicker.css" />
+    <link rel="stylesheet" href="/static/css/datepicker.css" />
+    <link rel="stylesheet" href="/static/css/uniform.css" />
+    <link rel="stylesheet" href="/static/css/select2.css" />
+    <link rel="stylesheet" href="/static/css/bootstrap-wysihtml5.css" />
+    <style>
+        .true-rule{
+            color: green;
+        }
+        .false-rule{
+            color: red;
+        }
+        .error-msg{
+            color: red;
+            font-weight: bold;
+        }
+        .have_windows{
+            font-size: 12px;
+            font-weight: bold;
+            color: #FF5722;
+        }
+        .special_user{
+            margin-left: 15px;
+            margin-bottom: 0; !important;
+        }
+    .control-label1{
+        padding-top: 15px;
+        width: 60px;
+        float: left;
+        text-align: right;
+    }
+    .table td{
+        text-align:center; !important;
+    }
+    </style>
+{% endblock %}
+
+
+{% block container %}
+    <div class="nopadding" style="margin-top: 20px;">
+
+        <div class="widget-box">
+          <div class="widget-title">
+            <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#tab1">物理机信息查询</a></li>
+
+            </ul>
+          </div>
+
+          <div class="widget-content tab-content" style="padding: 5px">
+
+              <div id="tab1" style="font-weight: bold" class="tab-pane active">
+                <div >
+                  <div class="controls">
+
+                        <form class="form-horizontal" name="basic_validate" id="basic_validate" novalidate="novalidate">
+
+                              <div class="control-group error">
+                                <label class="control-label1" STYLE="font-weight: bold">SN号</label>
+                                <div class="controls" style="margin-left: 70px;">
+                                  <input type="text" name="sn" id="check_key" style="border-color: #ccc">
+                                </div>
+                              </div>
+
+                              <div style="padding: 5px;margin-left: 15px">
+                                  <input  id="submit-data" onclick="SearchDate();" value="提 交" class="btn btn-success">
+                              </div>
+                        </form>
+                    <div class="error-msg" id="error-message" ></div>
+                  </div>
+                </div>
+              </div>
+
+
+          </div>
+        </div>
+
+        <div>
+            <p id="current_file" style="font-size: 15px;color: red;"></p>
+            <p>
+              <button class="btn" onclick="$.CheckAll('#body-data')">全选</button>
+              <button class="btn" onclick="$.UnCheckAll('#body-data')">取消</button>
+              <button id="edit_mode_target" class="btn" onclick="$.IntoEditModeOther(this, '#data-table')">进入编辑模式</button>
+              <button class="btn" onclick="Save()">保存</button>
+            </p>
+        </div>
+
+         <div class="widget-box">
+           <div class="widget-content nopadding budget-width">
+            <table class="table table-bordered table-striped with-check">
+              <thead id="title_name" style="font-weight: bold">
+
+              </thead>
+              <tbody id="body-data" >
+
+              </tbody>
+            </table>
+          </div>
+          <div class="widget-content nopadding budget-width">
+{#            <table class="table table-bordered table-striped with-check">#}
+
+            <table class="table table-bordered table-striped with-check">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" id="title-table-checkbox" name="title-table-checkbox" /></th>
+                  <th>项目类型</th>
+                  <th>IP地址</th>
+                  <th>应用类型</th>
+                  <th>设备状态</th>
+                  <th>资产编号/SN号</th>
+                  <th>设备品牌</th>
+                  <th>所属人</th>
+                  <th>所属机房</th>
+                </tr>
+              </thead>
+              <tbody edit-mode='false' id="data-table">
+
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+    </div>
+{% endblock %}
+
+
+{% block js %}
+
+    <script type="text/javascript">
+
+{#        $(function(){#}
+{#            $.InitMenu('#pwd-manager', '#password-check');          /* 控制左侧菜单的闭合 为点击的按钮添加激活的样式 */#}
+{#            Initialise();#}
+{#        });#}
+
+        function SearchDate() {
+            // 获取搜索框里的数据
+            var input_data = $('#check_key').val().trim();
+            $.ajax({
+                url:'/idc/check_data/',
+                type:'POST',
+                traditional:true,
+                data: {'input_data':input_data},
+                success: function (data) {
+
+                    var callbacks = $.parseJSON(data);               /* 将后台返回的数据 序列化为字典*/
+                    console.log(callbacks);
+                    InitGlobalDict(callbacks);
+                    EmbedIntoTable(callbacks.search_data, "#data-table");   // 将所有的数据都添加到id=table-body的tbody标签中
+
+                },
+                error:function(){
+                    $('#get-file-error').text('获取文件列表失败')
+                }
+            });  // end ajax
+        }
+
+
+        /*
+        初始化字典到全局变量，以便Select中的选项使用
+        */
+        function InitGlobalDict(callback){
+            window.window_pro_type = callback.pro_type.data;
+        }
+
+
+        function EmbedIntoTable(response, body) {
+            var response_status = response.status;
+            if(response_status){
+                $(body).empty();
+                $.each(response.data,function(index,data_dict){
+
+                    var tds = [];
+
+                    tds.push($.CreateTd({}, {}, $.CreateInput({'type':'checkbox'}, {})));
+                    tds.push($.CreateTd({'edit-enable':'true', 'edit-type':'select'}, {}, data_dict.pro_type));
+                    tds.push($.CreateTd({}, {}, data_dict.ip));
+                    tds.push($.CreateTd({}, {}, data_dict.app_type));
+                    tds.push($.CreateTd({}, {}, data_dict.device_status));
+                    tds.push($.CreateTd({}, {}, data_dict.sn));
+                    tds.push($.CreateTd({}, {}, data_dict.brand));
+                    tds.push($.CreateTd({}, {}, data_dict.own_person));
+                    tds.push($.CreateTd({}, {}, data_dict.idc));
+                    var tr = $.CreateTr({'data-id':data_dict.id}, {}, tds);
+
+                    $(body).append(tr)
+                })
+            }else {
+                $('#get-file-error').text(response.message);
+            }
+        }
+
+
+    </script>
+
+{% endblock %}

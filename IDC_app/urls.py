@@ -14,18 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from django.contrib import admin
-from Daily_app.views import iptables
-from Daily_app.views import account
-from Daily_app.views import log
-from Daily_app.views import task
-from Daily_app.views import connection
-from Daily_app.views import password_
-from Daily_app.views import smtp_
+from IDC_app.views import new_data
 urlpatterns = [
 
-    url(r'account/login/', account.login),
-
+    url(r'idc/$', new_data.idc_list),
+    url(r'idc/check_data/$', new_data.check_data),
+    # url(r'idc/data/create/$', new_data.add_new_data),
 
 
 ]
+
+

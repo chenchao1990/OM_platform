@@ -21,6 +21,8 @@ def line_generator(result_str):
 
 def set_user_pwd(host_ip, username, old_pwd, new_pwd, name):
     re_dict = {'ip': host_ip, 'status': None, 'queue_name': name}
+    l = [host_ip, username, old_pwd, new_pwd]
+    print "============================11234", " ".join(l)
     try:
         s = paramiko.SSHClient()
         s.load_system_host_keys()
@@ -28,20 +30,20 @@ def set_user_pwd(host_ip, username, old_pwd, new_pwd, name):
         s.connect(hostname=host_ip, port=22, username="root", password=old_pwd, timeout=5)
     except Exception, e:
         re_dict['status'] = 'connect error'
+        print "change password  login host err :", e
         return re_dict
 
     '''
     先利用旧密码登录服务器 发送修改密码命令修改为新密码
     '''
-    change_cmd = "echo '%r' | passwd --stdin root" % new_pwd
+    print "change password before"
+    change_cmd = "echo %r | passwd --stdin root" % str(new_pwd)
     stdin, stdout, stderr = s.exec_command(change_cmd)
     change_out = stdout.read()
     change_err = stderr.read()
     if change_out:
-        print "ssssssssssssssssssssssssssssss", change_out
         re_dict['status'] = "successful"
     if change_err:
-        print "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", change_err
         re_dict['status'] = "error"
 
     return re_dict

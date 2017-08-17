@@ -23,19 +23,20 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'fnw4k)9%3s-(1#tj1d=v0&@d=@9cjjx4v!1uv(oggaki!593hc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# python manage.py runserver 0.0.0.0:8000 --insecure
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
-SSO_DOMAIN = "10.126.59.18:8080"
-# SSO_DOMAIN = "popeye.ds.gome.com.cn"
-CMDB_HOST = "10.58.60.251:8888"
-# CMDB_HOST = "gom.ds.gome.com.cn"
+# SSO_DOMAIN = "10.126.59.18:8080"
+SSO_DOMAIN = "popeye.ds.gome.com.cn"
+# CMDB_HOST = "10.58.60.251:8888"
+CMDB_HOST = "gom.ds.gome.com.cn"
 
 SSO_TOKEN = "gome_sso_token"
 
-APP_KEY = "7b37ca05cb0a4e759fdfc28bdb6ab31b"
-# APP_KEY = "4329927328774d2d921a8fa32d7171d1"
+# APP_KEY = "7b37ca05cb0a4e759fdfc28bdb6ab31b"
+APP_KEY = "4329927328774d2d921a8fa32d7171d1"
 
 
 # Application definition

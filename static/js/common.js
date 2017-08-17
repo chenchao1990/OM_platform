@@ -163,7 +163,7 @@
         },
         //text ：一个input标签 为checkbox
         'CreateTh':function(attrs,csses,text){
-            var obj= document.createElement('th');      // 创建一个td的标签
+            var obj= document.createElement('th');      // 创建一个th的标签
             $.each(attrs,function(k,v){                 // 循环 属性的attrs
                 $(obj).attr(k,v);
             });
@@ -554,6 +554,39 @@
                     var check = $(this).prop('checked');            // 获取checkbox的状态 选中 或者未选中
                     var $tr = $(this).parent().parent();            // 这是一行数据   一个 tr
                     console.log("111111111111111111111111");
+                    if(check){                                      // 如果checkbox被选中
+                        $tr.addClass('success');                    // 添加一个 success样式
+                        console.log("2222222222222222222222222222");
+                        DoTrIntoEdit($tr, specialInEditFunc);
+                    }
+                });
+            }
+        },
+
+        'IntoEditModeOther':function(ths,body, specialInEditFunc, specialOutEditFunc){
+            if($(ths).hasClass('in-editing')){                 // 正处于编辑模式，点击将退出编辑模式
+                $(ths).removeClass('in-editing').text('进入编辑模式');
+                $(body).attr('edit-mode','false');
+                $(body).children().removeClass('success');      // 将一个tr的标签 移除success样式
+                $(body).find(':checkbox').each(function(){      // 循环所有的checkbox
+                    var check = $(this).prop('checked');        // 获取checkbox的选中状态
+                    var $tr = $(this).parent().parent();
+                    if(check){                                  // 当状态为选中时
+                        $tr.removeClass('success');             // tr移除success样式
+                        DoTrOutEdit($tr, specialOutEditFunc);
+                    }
+                });
+                //all unable edit
+
+            }else{                                                 // 正处于非编辑模式，点击将进入编辑模式
+                //into edit mode
+                $(ths).addClass('in-editing').text('退出编辑模式');
+                $(body).attr('edit-mode','true');
+                $(body).find(':checkbox').each(function(){
+                    console.log("-----------------");
+                    var check = $(this).prop('checked');            // 获取checkbox的状态 选中 或者未选中
+                    var $tr = $(this).parent().parent();            // 这是一行数据   一个 tr
+                    console.log("111111111111111111111111", check);
                     if(check){                                      // 如果checkbox被选中
                         $tr.addClass('success');                    // 添加一个 success样式
                         console.log("2222222222222222222222222222");

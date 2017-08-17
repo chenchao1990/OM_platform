@@ -9,9 +9,9 @@ import datetime
 
 
 def create_task_data(request):
-    year_num = 2017
-    task_manager.create_task_data(year_num)
-    return HttpResponse(str(year_num) + " task data is create successful!!!!")
+    cur = datetime.datetime.now().year
+    task_manager.create_task_data(cur)
+    return HttpResponse(str(cur) + " task data is create successful!!!!")
 
 
 # @login_auth
