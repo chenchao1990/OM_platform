@@ -45,6 +45,7 @@ urlpatterns = [
     url(r'log/password_log_show/$', log.password_log_show),
 
     url(r'task/$', task.task_show),
+    url(r'task_auth/$', task.task_show_auth),
     url(r'task/show_all/$', task.task_show_all),
     url(r'task/show_month/$', task.task_show_month),
     url(r'task/create/$', task.create_task_data),

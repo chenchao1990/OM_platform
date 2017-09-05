@@ -10,6 +10,17 @@ class BaseResponse(object):
         self.other = None
 
 
+class IDCResponse(object):
+    def __init__(self):
+        self.status = False
+        self.message = ''
+        self.sql_and_app = None         # 数据库与应用
+        self.vir_host = None            # 宿主机与非宿主机
+        self.can_virtual = None         # 可虚拟化与不可虚拟化
+        self.idc = None                 # 机房
+        self.brand = None               # 品牌
+
+
 class TaskResponse(object):
     def __init__(self):
         self.status = False

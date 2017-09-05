@@ -41,38 +41,29 @@
 <div id="user-nav" class="navbar navbar-inverse">
   <ul class="nav">
 
-    <li class=""><a title="" href="/task/"> <span class="text">值班表</span></a></li>
+
 
   {% if userinfo.user_auth %}
       {% if userinfo.user_auth == 9999 %}
-    <li class=""><a title="" href="/budget_show/"> <span class="text">采购预算</span></a></li>
-    <li class=""><a title="" href="/cloud/"> <span class="text">云主机统计</span></a></li>
+        <li class=""><a title="" href="/task_auth/"> <span class="text">值班表</span></a></li>
+        <li class=""><a title="" href="/budget_show/"> <span class="text">采购预算</span></a></li>
+        <li class=""><a title="" href="/cloud/"> <span class="text">云主机统计</span></a></li>
+        <li class=""><a title="" href="/idc/"> <span class="text">物理机统计</span></a></li>
 
       {% endif %}
+  {% else %}
+      <li class=""><a title="" href="/task/"> <span class="text">值班表</span></a></li>
   {% endif %}
-    <li class=""><a title="" href="/idc/"> <span class="text">物理机统计</span></a></li>
 
-{#            <li  class="dropdown" id="profile-messages" >#}
-{#                <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">#}
-{#                    <i class="icon icon-user"></i>#}
-{#                    <span class="text">采购预算</span>#}
-{#                    <b class="caret"></b>#}
-{#                </a>#}
-{#              <ul class="dropdown-menu">#}
-{#                <li><a href="/budget_list/"><i class="icon-file"></i>表格展示</a></li>#}
-{#                <li class="divider"></li>#}
-{#                <li><a href="#"><i class="icon-list"></i>表格管理</a></li>#}
-{#              </ul>#}
-{#            </li>#}
 
     <li  class="dropdown" id="profile-messages" >
         <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>
             <span class="text" style="color: white">{{ userinfo.cn_name }}</span><b class="caret"></b>
         </a>
       <ul class="dropdown-menu">
-        <li><a href="#"><i class="icon-user"></i> My Profile</a></li>
-        <li class="divider"></li>
-        <li><a href="#"><i class="icon-check"></i> My Tasks</a></li>
+{#        <li><a href="#"><i class="icon-user"></i> My Profile</a></li>#}
+{#        <li class="divider"></li>#}
+{#        <li><a href="#"><i class="icon-check"></i> My Tasks</a></li>#}
         <li class="divider"></li>
         <li><a href="/account/logout/"><i class="icon-key"></i> Log Out</a></li>
       </ul>

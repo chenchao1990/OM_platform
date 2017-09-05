@@ -8,16 +8,26 @@ import json
 import datetime
 
 
+@login_sso
 def create_task_data(request):
+    ret = {"status": False}
     cur = datetime.datetime.now().year
+    task_manager.delete_all_task()
     task_manager.create_task_data(cur)
-    return HttpResponse(str(cur) + " task data is create successful!!!!")
+    ret["status"] = True
+    return HttpResponse(json.dumps(ret))
 
 
 # @login_auth
 def task_show(request):
 
     return render(request, 'data_show/task_show.html')
+
+
+@login_sso
+def task_show_auth(request):
+    user_info = request.userinfo
+    return render(request, 'data_show/task_show.html', {'userinfo': user_info})
 
 
 # @login_auth

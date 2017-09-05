@@ -28,15 +28,15 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
-# SSO_DOMAIN = "10.126.59.18:8080"
-SSO_DOMAIN = "popeye.ds.gome.com.cn"
-# CMDB_HOST = "10.58.60.251:8888"
-CMDB_HOST = "gom.ds.gome.com.cn"
+SSO_DOMAIN = "10.126.59.18:8080"
+# SSO_DOMAIN = "popeye.ds.gome.com.cn"
+CMDB_HOST = "10.58.60.251:8888"
+# CMDB_HOST = "gom.ds.gome.com.cn"
+APP_KEY = "7b37ca05cb0a4e759fdfc28bdb6ab31b"
+# APP_KEY = "4329927328774d2d921a8fa32d7171d1"
 
 SSO_TOKEN = "gome_sso_token"
 
-# APP_KEY = "7b37ca05cb0a4e759fdfc28bdb6ab31b"
-APP_KEY = "4329927328774d2d921a8fa32d7171d1"
 
 
 # Application definition
@@ -173,4 +173,5 @@ IP_FILE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/up
 SCRIPT_FILE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/upload_file/scripts_file/"
 BUDGET_FILE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/upload_file/budget_file/"
 IPTABLES_SCRIPTS = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/upload_file/iptables_scripts/"
+IDC_FILES = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/upload_file/idc_file/"
 ANSIBLE_FILE_DIR = '/ansible_tmp/'

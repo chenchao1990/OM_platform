@@ -68,9 +68,9 @@
     function ExecuteTdIntoEdit($td, specialInEditFunc){         // $td 为循环到的一条资产下某个td
         var editType = $td.attr('edit-type');
         //var editOption = $td.attr('edit-option');
-        //var options = $td.attr('options');
-        //var value_key = $td.attr('value_key');
-        //var text_key = $td.attr('text_key');        // 获取各种能编辑的属性的值
+        var options = $td.attr('options');
+        var value_key = $td.attr('value_key');
+        var text_key = $td.attr('text_key');        // 获取各种能编辑的属性的值
 
         if(editType=='input'){                      // 判断editType为input时
             console.log("4444444444444444444");
@@ -86,7 +86,7 @@
             }else{
                 var text = $td.text();              // 获取这条资产下某个td的文本
                 $td.addClass('padding-3');          // 添加一个样式
-                var htmlTag = $.CreateSelect({'class':'padding-tb-5 form-control','onchange':'MultiSelect(this)'},
+                var htmlTag = $.CreateSelect({'class':'padding-tb-5 form-control'},
                                              {'width':'100%'},
                                              window[options],       //  window[options] 为所有带option属性的标签
                                              text,
@@ -145,6 +145,20 @@
             });
             //为创建的td标签 添加html代码
             $(obj).html(text);
+            return obj;
+        },
+        //创建一个table标签
+        'CreateTable':function(attrs,csses,thead, tbody){
+            var obj= document.createElement('table');      // 创建一个table的标签
+            $.each(attrs,function(k,v){                 // 循环 属性的attrs
+                $(obj).attr(k,v);
+            });
+            $.each(csses,function(k,v){                 // 循环 css的csses
+                $(obj).css(k,v);
+            });
+            //为创建的td标签 添加html代码
+            obj.appendChild(thead);
+            obj.appendChild(tbody);
             return obj;
         },
         'CreateBigDiv':function(attrs,csses,div_list){
@@ -550,13 +564,10 @@
                 $(ths).addClass('in-editing').text('退出编辑模式');
                 $(body).attr('edit-mode','true');
                 $(body).find(':checkbox').each(function(){
-                    console.log("-----------------");
                     var check = $(this).prop('checked');            // 获取checkbox的状态 选中 或者未选中
                     var $tr = $(this).parent().parent();            // 这是一行数据   一个 tr
-                    console.log("111111111111111111111111");
                     if(check){                                      // 如果checkbox被选中
                         $tr.addClass('success');                    // 添加一个 success样式
-                        console.log("2222222222222222222222222222");
                         DoTrIntoEdit($tr, specialInEditFunc);
                     }
                 });

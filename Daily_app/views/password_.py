@@ -49,7 +49,7 @@ def get_password_file(request):
 @login_sso
 def delete_password_file(request):
     '''
-    删除所有上传的ping文件
+    删除所有密码文件
     '''
     if request.method == "POST":
         data = request.POST.get("opt")
@@ -92,7 +92,7 @@ def password_import(request):
 @login_sso
 def password_init(request):
     '''
-    密码初始化
+    修改服务器密码 并保存
     '''
     user_info = request.userinfo
     username = user_info.get('cn_name', '1')

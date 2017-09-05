@@ -18,3 +18,5 @@ def create_task_data(value_dict):
     TaskData.objects.create(**value_dict)
 
 
+def delete_all_task():
+    TaskData.objects.all().delete()

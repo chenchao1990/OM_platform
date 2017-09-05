@@ -127,12 +127,13 @@ def get_server_file(file_dir):
 
 def delete_pwd_file(file_dir):
     '''
-    删除所有的上传ping文件
+    删除所有的密码文件
     '''
     response = BaseResponse()
 
     try:
         all_file_list = os.listdir(file_dir)
+        print all_file_list
         for file_name in all_file_list:
             os.remove(file_dir+file_name)
         # all_file_list2 = os.listdir(file_dir)

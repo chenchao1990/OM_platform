@@ -35,6 +35,11 @@ def get_task(month_num, current_day=None):
     return response
 
 
+def delete_all_task():
+    # 删除所有值班记录
+    task_handle.delete_all_task()
+
+
 def create_task_data(year_num):
     '''
     1、将DBA用户和SA用户 电话获取到
