@@ -20,6 +20,11 @@ def get_asset_by_id(asset_id):              # 基于ID去获取数据
     return ret
 
 
+def delete_data_by_id(asset_id):              # 基于ID去删除数据
+    ret = models.IDCPhysical.objects.filter(id=asset_id).delete()
+    return ret
+
+
 def update_date_by_id(data_dict):
     with transaction.atomic():
         asset_obj = get_asset_by_id(data_dict['id'])

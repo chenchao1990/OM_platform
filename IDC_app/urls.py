@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'idc/$', new_data.idc_list),
     url(r'idc/check_data/$', new_data.check_data),
     url(r'idc/data_update/$', new_data.update_data),
+    url(r'idc/data_delete/$', new_data.delete_data),
     url(r'idc/idc_file/up/$', new_data.add_new_data),
     # url(r'idc/data/create/$', new_data.add_new_data),
     url(r'idc/statistics/$', collect_data.statistics),

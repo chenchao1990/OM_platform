@@ -62,29 +62,32 @@ def create_new_data(file_obj, file_path, filename):
         for line in all_data_list:
             if type(line[18]) == float:
                 line[18] = int(line[18])
-            one_obj = IDCPhysical(pro_type=line[0],
-                                  ip=line[1],
-                                  device_type=line[2],
-                                  server_type=line[3],
-                                  app_type=line[4],
-                                  device_status=line[5],
-                                  is_virtual=line[6],
-                                  sn=line[7],
-                                  brand=line[8],
-                                  device_version=line[9],
-                                  device_conf=line[10],
-                                  own_person=line[11],
-                                  pro_line1=line[12],
-                                  pro_line2=line[13],
-                                  pro_line3=line[14],
-                                  pro_person=line[15],
-                                  module=line[16],
-                                  idc=line[17],
-                                  cabinet=line[18],
-                                  cabinet_status=line[19],
-                                  time_period=line[20],
-                                  delivery_date=line[21])
-            import_data_list.append(one_obj)
+
+            one_obj2 = IDCPhysical(
+                                  time_period=line[0],
+                                  delivery_date=line[1],
+                                  pro_type=line[2],
+                                  ip=line[3],
+                                  device_type=line[4],
+                                  server_type=line[5],
+                                  app_type=line[6],
+                                  device_status=line[7],
+                                  is_virtual=line[8],
+                                  sn=line[9],
+                                  brand=line[10],
+                                  device_version=line[11],
+                                  device_conf=line[12],
+                                  own_person=line[13],
+                                  pro_line1=line[14],
+                                  pro_line2=line[15],
+                                  pro_line3=line[16],
+                                  pro_person=line[17],
+                                  module=line[18],
+                                  idc=line[19],
+                                  cabinet=line[20],
+                                  cabinet_status=line[21],
+                                    )
+            import_data_list.append(one_obj2)
         IDCPhysical.objects.bulk_create(import_data_list)
         response.status = True
         response.data = "success"

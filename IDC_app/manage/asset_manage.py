@@ -64,6 +64,20 @@ def update_date(data):
     return response                                     # 将封装设备状态数据的对象返回
 
 
+def delete_date(data):
+    response = BaseResponse()
+    try:
+        id_list = json.loads(data)
+        for i in id_list:
+            i = int(i)
+            search_handle.delete_data_by_id(i)
+        response.status = True
+        response.data = u"删除成功"
+    except Exception, e:
+        response.message = str(e)
+    return response                                     # 将封装设备状态数据的对象返回
+
+
 def collect_data():
     # 采集一些统计数据
     response = BaseResponse()

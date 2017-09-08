@@ -39,6 +39,27 @@ class IDCPhysical(models.Model):
         verbose_name_plural = "机房所有物理机"             # 这里设置在admin表周的名称
 
 
+# class SeasonData(models.Model):
+#     # 项目类型
+#     year = models.CharField(u"年份",  max_length=12, blank=True, null=True)
+#     season = models.CharField(u"季度",  max_length=12, blank=True, null=True)
+#     sql = models.CharField(u"数据库服务器",  max_length=12, blank=True, null=True)
+#     sql_percent = models.FloatField(u"数据库比率", blank=True, null=True)
+#     app_v_host = models.CharField(u"应用宿主机",  max_length=12, blank=True, null=True)
+#     app_host = models.CharField(u"应用非宿主机",  max_length=12, blank=True, null=True)
+#     app_v_host_percent = models.FloatField(u"应用宿主机比率", blank=True, null=True)
+#     app_host_percent = models.FloatField(u"应用非宿主机比率", blank=True, null=True)
+#     v_host_percent = models.FloatField(u"宿主机总比率", blank=True, null=True)
+#     no_use_host = models.CharField(u"其他、报废、下线等",  max_length=12, blank=True, null=True)
+#     all_host = models.CharField(u"合计",  max_length=12, blank=True, null=True)
+#
+#     def __unicode__(self):
+#         return self.name
+#
+#     class Meta:
+#         verbose_name_plural = "季度统计"
+
+
 class ProjectType(models.Model):
     # 项目类型
     name = models.CharField(u"项目名称",  max_length=12, blank=True, null=True)

@@ -96,6 +96,7 @@
 {#                          <button class="btn" onclick="$.UnCheckAll('#body-data')">取消</button>#}
                           <button id="edit_mode_target" class="btn" onclick="$.IntoEditModeOther(this, '#data-table')">进入编辑模式</button>
                           <button class="btn" onclick="Save()">保存</button>
+                          <button class="btn" onclick="DeleteData('#data-table')">删除</button>
                         </p>
                   </div>
 
@@ -496,7 +497,47 @@
                 $('#get-file-error').text(response.message);
             }
         }
+        function DeleteData(body){
+            var ret = window.confirm("删除所选数据？");
+            if(ret){
+                var deleteData = [];                            // 专门保存 发生变更的数据
+                var choice_tr = [];
+                $(body).find(':checkbox').each(function(){      // 循环所有的checkbox
+                        var check = $(this).prop('checked');        // 获取checkbox的选中状态
+                        var data_id = $(this).parent().parent().attr('data-id');
+                        var $tr = $(this).parent().parent();
+                        if(check){                                  // 当状态为选中时
+                            deleteData.push(data_id);
+                            choice_tr.push($tr)
+                        }
+                    });
+                var deleteDatas = JSON.stringify(deleteData);
+                $.ajax({
+                    url:'/idc/data_delete/',
+                    type:'POST',
+                    data:{'data':deleteDatas},
+                    success: function (response) {
+                        var callback = $.parseJSON(response);       // 如果成功 将后台返回的数据 json回来
+                        console.log(callback);
+                        if(callback.status){
+                            $("#file-wait").text(callback.data);
+                            $.each(choice_tr, function (index, tr) {
+                                tr.remove();
+                            })
+                        }else{
 
+                        }
+                    },
+                    error:function(){
+                        alert('请求错误.');
+
+                    }
+                })
+
+            }
+
+
+        }
         function Save(){
             if($('#edit_mode_target').hasClass('in-editing')){     // 判断进入编辑模式按钮 有此样式
                 $.IntoEditModeOther('#edit_mode_target','#data-table');     // 如果有此样式 则执行编辑模式的方法

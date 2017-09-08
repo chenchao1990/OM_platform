@@ -52,6 +52,16 @@ def update_data(request):
 
 
 @login_sso
+def delete_data(request):
+    # 更新数据
+    if request.method == "POST":
+        change_data = request.POST.get('data', None)       # 获取更新数据  一个列表
+        print "dddddddddddddddddddddddddd", change_data
+        ret = asset_manage.delete_date(change_data).__dict__
+        return HttpResponse(json.dumps(ret))
+
+
+@login_sso
 def statistics(request):
     # 数据统计
     if request.method == "POST":
